@@ -14,7 +14,7 @@ public class DBConnection
     private string Username { get; }
     private string Password { get; }
 
-    public DBConnection(string host = "localhost", int port = 5432, string database = "reportdb", string username = "UserDB", string password = "UserOperate!1")
+    public DBConnection(string host = "localhost", int port = 5432, string database = "reportdb", string username = "User", string password = "UserPassword")
     {
         Host = host;
         Port = port;
