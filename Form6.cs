@@ -16,5 +16,11 @@ namespace ShiftReportApp1
         {
             InitializeComponent();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Form6 form6 = Application.OpenForms.OfType<Form6>().FirstOrDefault();
+            form6.Close();
+        }
     }
 }

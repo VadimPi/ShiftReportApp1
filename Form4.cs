@@ -33,7 +33,7 @@ namespace ShiftReportApp1
             FROM places_in_line;
             ";
 
-            DBConnection dbConnection = new DBConnection();
+            DataBaseConnection dbConnection = new DataBaseConnection();
             NpgsqlConnection connection = dbConnection.GetConnection();
 
             connection.Open();
@@ -178,7 +178,8 @@ namespace ShiftReportApp1
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            Form4 form4 = Application.OpenForms.OfType<Form4>().FirstOrDefault();
+            form4.Close();
         }
     }
 }

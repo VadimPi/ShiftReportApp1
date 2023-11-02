@@ -32,7 +32,7 @@ namespace ShiftReportApp1
             FROM defect_types;
             ";
 
-            DBConnection dbConnection = new DBConnection();
+            DataBaseConnection dbConnection = new DataBaseConnection();
             NpgsqlConnection connection = dbConnection.GetConnection();
 
             connection.Open();
@@ -46,7 +46,7 @@ namespace ShiftReportApp1
             }
             using (NpgsqlCommand cmd = new NpgsqlCommand(query2, connection))
             using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync())
-            { 
+            {
                 while (await reader.ReadAsync())
                 {
                     comboBox3.Items.Add($"{reader["type_name"]}");
@@ -342,7 +342,8 @@ namespace ShiftReportApp1
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            Form3 form3 = Application.OpenForms.OfType<Form3>().FirstOrDefault();
+            form3.Close();
         }
     }
 }

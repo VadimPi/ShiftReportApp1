@@ -18,6 +18,7 @@ namespace ShiftReportApp1
     {
         public int PlacesID { get; set; }
         public string PlacesName { get; set; }
+        public string Section { get; set; }
     }
 
     public class ShiftReport
@@ -38,6 +39,7 @@ namespace ShiftReportApp1
     {
         public int StopTypeID { get; set; }
         public string TypeName { get; set; }
+        public string TypeIndex { get; set; }
     }
 
     public class ProdQualityReport
@@ -46,12 +48,16 @@ namespace ShiftReportApp1
         public int Report { get; set; }
         public int Product { get; set; }
         public bool Unspecified { get; set; }
+        public bool Regarding { get; set; }
         public int ProdDepth { get; set; }
         public int ProdLength { get; set; }
         public int ProdWidth { get; set; }
         public float VolumePack { get; set; }
         public float AvgDensity { get; set; }
         public int PackCount { get; set; }
+        public DateTime DateRecordPQR { get; set; }
+        public float Weight { get; set; }
+        public float VolumeProduct { get; set; }
     }
 
     public class ProdDefectReport
@@ -62,6 +68,8 @@ namespace ShiftReportApp1
         public int DefectVolumePack { get; set; }
         public float DefectDensity { get; set; }
         public int DefectPackCount { get; set; }
+        public float DefectVolume { get; set; }
+        public float DefectWeight { get; set; }
     }
 
     public class StopsReport
@@ -73,5 +81,7 @@ namespace ShiftReportApp1
         public TimeSpan StopEndTime { get; set; }
         public string CommentStop { get; set; }
         public int DurationStopMin { get; set; }
+        public int PlaceStop { get; set; }
+        public DateTime DateRecordSR { get; set; }
     }
 }
