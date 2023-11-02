@@ -12,9 +12,6 @@ namespace ShiftReportApp1
         public string ProductName { get; set; }
         public int DensityMin { get; set; }
         public int DensityMax { get; set; }
-
-        public List<string> productNames { get; set; }
-
     }
 
     public class PlaceInLine
@@ -29,7 +26,6 @@ namespace ShiftReportApp1
         public int ShiftDay { get; set; }
         public int ShiftNum { get; set; }
         public DateTime ShiftDate { get; set; }
-        public DateTime RecordDate { get; set; }
     }
 
     public class DefectType
@@ -42,7 +38,6 @@ namespace ShiftReportApp1
     {
         public int StopTypeID { get; set; }
         public string TypeName { get; set; }
-        public int PlaceLine { get; set; }
     }
 
     public class ProdQualityReport
