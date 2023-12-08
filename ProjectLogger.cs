@@ -11,7 +11,6 @@ namespace ShiftReportApp1
 {
     public class ProjectLogger
     {
-
         private readonly static Logger logger = LogManager.LoadConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NLog.config")).GetCurrentClassLogger();
 
         public static void LogDebug(string message)

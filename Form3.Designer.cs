@@ -38,15 +38,28 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
+            this.textBox21 = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.comboBox9 = new System.Windows.Forms.ComboBox();
+            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
+            this.textBox18 = new System.Windows.Forms.TextBox();
             this.textBox23 = new System.Windows.Forms.TextBox();
-            this.textBox22 = new System.Windows.Forms.TextBox();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
             this.textBox19 = new System.Windows.Forms.TextBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.comboBox10 = new System.Windows.Forms.ComboBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
+            this.textBox15 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.comboBox7 = new System.Windows.Forms.ComboBox();
@@ -64,14 +77,6 @@
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
             this.textBox13 = new System.Windows.Forms.TextBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.comboBox9 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
-            this.textBox15 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
@@ -96,9 +101,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -107,10 +119,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
@@ -123,24 +131,24 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(16, 43);
+            this.dateTimePicker1.Location = new System.Drawing.Point(17, 46);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(144, 26);
+            this.dateTimePicker1.Size = new System.Drawing.Size(144, 30);
             this.dateTimePicker1.TabIndex = 4;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // domainUpDown1
             // 
-            this.domainUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.domainUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.domainUpDown1.Items.Add("День");
             this.domainUpDown1.Items.Add("Ночь");
-            this.domainUpDown1.Location = new System.Drawing.Point(203, 43);
+            this.domainUpDown1.Location = new System.Drawing.Point(216, 46);
             this.domainUpDown1.Margin = new System.Windows.Forms.Padding(4);
             this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(96, 26);
+            this.domainUpDown1.Size = new System.Drawing.Size(96, 30);
             this.domainUpDown1.TabIndex = 19;
             this.domainUpDown1.Text = "День";
             this.domainUpDown1.SelectedItemChanged += new System.EventHandler(this.domainUpDown1_SelectedItemChanged);
@@ -149,14 +157,14 @@
             // 
             this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox8.Enabled = false;
-            this.textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox8.Location = new System.Drawing.Point(216, 12);
             this.textBox8.Margin = new System.Windows.Forms.Padding(4);
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
             this.textBox8.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox8.ShortcutsEnabled = false;
-            this.textBox8.Size = new System.Drawing.Size(161, 19);
+            this.textBox8.Size = new System.Drawing.Size(161, 23);
             this.textBox8.TabIndex = 18;
             this.textBox8.TabStop = false;
             this.textBox8.Text = "Смена";
@@ -167,13 +175,13 @@
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox1.Location = new System.Drawing.Point(16, 12);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ShortcutsEnabled = false;
-            this.textBox1.Size = new System.Drawing.Size(145, 19);
+            this.textBox1.Size = new System.Drawing.Size(145, 23);
             this.textBox1.TabIndex = 20;
             this.textBox1.TabStop = false;
             this.textBox1.Text = "Дата";
@@ -182,8 +190,8 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown1.Location = new System.Drawing.Point(320, 43);
+            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown1.Location = new System.Drawing.Point(320, 46);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             4,
@@ -196,7 +204,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(57, 26);
+            this.numericUpDown1.Size = new System.Drawing.Size(57, 30);
             this.numericUpDown1.TabIndex = 21;
             this.numericUpDown1.Value = new decimal(new int[] {
             1,
@@ -212,23 +220,24 @@
             this.groupBox1.Controls.Add(this.domainUpDown1);
             this.groupBox1.Controls.Add(this.textBox8);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Location = new System.Drawing.Point(644, 50);
+            this.groupBox1.Location = new System.Drawing.Point(645, 26);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(385, 82);
+            this.groupBox1.Size = new System.Drawing.Size(385, 88);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // comboBox1
             // 
             this.comboBox1.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(16, 42);
+            this.comboBox1.Location = new System.Drawing.Point(294, 6);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(323, 28);
+            this.comboBox1.Size = new System.Drawing.Size(323, 33);
             this.comboBox1.TabIndex = 23;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -236,29 +245,29 @@
             // 
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(16, 15);
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox2.Location = new System.Drawing.Point(22, 9);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.ShortcutsEnabled = false;
-            this.textBox2.Size = new System.Drawing.Size(324, 19);
+            this.textBox2.Size = new System.Drawing.Size(176, 23);
             this.textBox2.TabIndex = 22;
             this.textBox2.TabStop = false;
-            this.textBox2.Text = "Выберите смену";
+            this.textBox2.Text = "Выбирите смену";
             // 
             // textBox3
             // 
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Enabled = false;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(592, 15);
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox3.Location = new System.Drawing.Point(662, 2);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.ShortcutsEnabled = false;
-            this.textBox3.Size = new System.Drawing.Size(437, 36);
+            this.textBox3.Size = new System.Drawing.Size(351, 29);
             this.textBox3.TabIndex = 24;
             this.textBox3.TabStop = false;
             this.textBox3.Text = "Введите смену если нет в списке";
@@ -266,19 +275,21 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.groupBox11);
+            this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.textBox23);
-            this.groupBox2.Controls.Add(this.textBox22);
             this.groupBox2.Controls.Add(this.textBox20);
             this.groupBox2.Controls.Add(this.groupBox10);
             this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.comboBox10);
+            this.groupBox2.Controls.Add(this.groupBox6);
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.groupBox7);
             this.groupBox2.Controls.Add(this.groupBox5);
             this.groupBox2.Controls.Add(this.groupBox8);
             this.groupBox2.Controls.Add(this.groupBox4);
-            this.groupBox2.Controls.Add(this.groupBox9);
-            this.groupBox2.Controls.Add(this.groupBox6);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.numericUpDown7);
             this.groupBox2.Controls.Add(this.textBox11);
@@ -294,46 +305,215 @@
             this.groupBox2.Controls.Add(this.textBox5);
             this.groupBox2.Controls.Add(this.textBox4);
             this.groupBox2.Controls.Add(this.comboBox2);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(13, 133);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox2.Location = new System.Drawing.Point(13, 111);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1016, 528);
+            this.groupBox2.Size = new System.Drawing.Size(1016, 550);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Введите данные по продукту";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Azure;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(928, 117);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(36, 33);
+            this.button2.TabIndex = 74;
+            this.button2.Text = "∑";
+            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(642, 152);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.RowTemplate.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(373, 393);
+            this.dataGridView1.TabIndex = 73;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Azure;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(970, 117);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 33);
+            this.button1.TabIndex = 72;
+            this.button1.Text = "↗\r\n";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.checkBox3);
+            this.groupBox11.Controls.Add(this.numericUpDown17);
+            this.groupBox11.Controls.Add(this.textBox21);
+            this.groupBox11.Location = new System.Drawing.Point(274, 16);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(176, 131);
+            this.groupBox11.TabIndex = 71;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Enter += new System.EventHandler(this.groupBox11_Enter);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBox3.Location = new System.Drawing.Point(7, 62);
+            this.checkBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(157, 22);
+            this.checkBox3.TabIndex = 70;
+            this.checkBox3.Text = "Отличается от ГП";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
+            // numericUpDown17
+            // 
+            this.numericUpDown17.DecimalPlaces = 2;
+            this.numericUpDown17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown17.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown17.Location = new System.Drawing.Point(7, 98);
+            this.numericUpDown17.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDown17.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            131072});
+            this.numericUpDown17.Minimum = new decimal(new int[] {
+            3500,
+            0,
+            0,
+            131072});
+            this.numericUpDown17.Name = "numericUpDown17";
+            this.numericUpDown17.Size = new System.Drawing.Size(165, 28);
+            this.numericUpDown17.TabIndex = 68;
+            this.numericUpDown17.Value = new decimal(new int[] {
+            9500,
+            0,
+            0,
+            131072});
+            this.numericUpDown17.ValueChanged += new System.EventHandler(this.numericUpDown17_ValueChanged);
+            // 
+            // textBox21
+            // 
+            this.textBox21.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox21.Enabled = false;
+            this.textBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox21.Location = new System.Drawing.Point(7, 21);
+            this.textBox21.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox21.Multiline = true;
+            this.textBox21.Name = "textBox21";
+            this.textBox21.ReadOnly = true;
+            this.textBox21.ShortcutsEnabled = false;
+            this.textBox21.Size = new System.Drawing.Size(131, 34);
+            this.textBox21.TabIndex = 69;
+            this.textBox21.TabStop = false;
+            this.textBox21.Text = "Средняя\r\nплотность ОС\r\n";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.comboBox9);
+            this.groupBox9.Controls.Add(this.numericUpDown14);
+            this.groupBox9.Controls.Add(this.textBox18);
+            this.groupBox9.Location = new System.Drawing.Point(454, 151);
+            this.groupBox9.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox9.Size = new System.Drawing.Size(177, 130);
+            this.groupBox9.TabIndex = 44;
+            this.groupBox9.TabStop = false;
+            // 
+            // comboBox9
+            // 
+            this.comboBox9.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.comboBox9.DropDownWidth = 200;
+            this.comboBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox9.FormattingEnabled = true;
+            this.comboBox9.Location = new System.Drawing.Point(8, 58);
+            this.comboBox9.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox9.Name = "comboBox9";
+            this.comboBox9.Size = new System.Drawing.Size(164, 26);
+            this.comboBox9.TabIndex = 41;
+            this.comboBox9.SelectedIndexChanged += new System.EventHandler(this.comboBox9_SelectedIndexChanged);
+            // 
+            // numericUpDown14
+            // 
+            this.numericUpDown14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown14.Location = new System.Drawing.Point(8, 90);
+            this.numericUpDown14.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDown14.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.numericUpDown14.Name = "numericUpDown14";
+            this.numericUpDown14.Size = new System.Drawing.Size(165, 28);
+            this.numericUpDown14.TabIndex = 39;
+            this.numericUpDown14.ThousandsSeparator = true;
+            this.numericUpDown14.ValueChanged += new System.EventHandler(this.numericUpDown14_ValueChanged);
+            // 
+            // textBox18
+            // 
+            this.textBox18.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox18.CausesValidation = false;
+            this.textBox18.Cursor = System.Windows.Forms.Cursors.Default;
+            this.textBox18.Enabled = false;
+            this.textBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox18.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBox18.Location = new System.Drawing.Point(8, 16);
+            this.textBox18.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox18.Multiline = true;
+            this.textBox18.Name = "textBox18";
+            this.textBox18.ReadOnly = true;
+            this.textBox18.ShortcutsEnabled = false;
+            this.textBox18.Size = new System.Drawing.Size(161, 37);
+            this.textBox18.TabIndex = 40;
+            this.textBox18.TabStop = false;
+            this.textBox18.Text = "№5 Вид дефекта\r\nКоличество пачек";
+            this.textBox18.WordWrap = false;
+            this.textBox18.TextChanged += new System.EventHandler(this.textBox18_TextChanged);
+            // 
             // textBox23
             // 
             this.textBox23.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox23.Enabled = false;
-            this.textBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox23.Location = new System.Drawing.Point(660, 281);
+            this.textBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox23.Location = new System.Drawing.Point(642, 122);
             this.textBox23.Margin = new System.Windows.Forms.Padding(4);
             this.textBox23.Multiline = true;
             this.textBox23.Name = "textBox23";
             this.textBox23.ReadOnly = true;
             this.textBox23.ShortcutsEnabled = false;
-            this.textBox23.Size = new System.Drawing.Size(343, 28);
+            this.textBox23.Size = new System.Drawing.Size(290, 23);
             this.textBox23.TabIndex = 67;
             this.textBox23.TabStop = false;
             this.textBox23.Text = "Уже введенные продукты\r\n";
             this.textBox23.TextChanged += new System.EventHandler(this.textBox23_TextChanged);
-            // 
-            // textBox22
-            // 
-            this.textBox22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox22.Location = new System.Drawing.Point(660, 316);
-            this.textBox22.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox22.Multiline = true;
-            this.textBox22.Name = "textBox22";
-            this.textBox22.ReadOnly = true;
-            this.textBox22.Size = new System.Drawing.Size(347, 206);
-            this.textBox22.TabIndex = 66;
-            this.textBox22.TextChanged += new System.EventHandler(this.textBox22_TextChanged);
             // 
             // textBox20
             // 
@@ -341,13 +521,13 @@
             this.textBox20.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox20.Enabled = false;
             this.textBox20.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox20.Location = new System.Drawing.Point(8, 395);
+            this.textBox20.Location = new System.Drawing.Point(9, 371);
             this.textBox20.Margin = new System.Windows.Forms.Padding(4);
             this.textBox20.Multiline = true;
             this.textBox20.Name = "textBox20";
             this.textBox20.ReadOnly = true;
             this.textBox20.ShortcutsEnabled = false;
-            this.textBox20.Size = new System.Drawing.Size(156, 25);
+            this.textBox20.Size = new System.Drawing.Size(73, 18);
             this.textBox20.TabIndex = 52;
             this.textBox20.TabStop = false;
             this.textBox20.Text = "(пачек, шт.)";
@@ -358,18 +538,18 @@
             this.groupBox10.Controls.Add(this.numericUpDown15);
             this.groupBox10.Controls.Add(this.numericUpDown16);
             this.groupBox10.Controls.Add(this.textBox19);
-            this.groupBox10.Location = new System.Drawing.Point(455, 402);
+            this.groupBox10.Location = new System.Drawing.Point(640, 14);
             this.groupBox10.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox10.Size = new System.Drawing.Size(177, 126);
+            this.groupBox10.Size = new System.Drawing.Size(304, 83);
             this.groupBox10.TabIndex = 47;
             this.groupBox10.TabStop = false;
             // 
             // numericUpDown15
             // 
-            this.numericUpDown15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown15.Location = new System.Drawing.Point(8, 90);
+            this.numericUpDown15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown15.Location = new System.Drawing.Point(132, 49);
             this.numericUpDown15.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown15.Maximum = new decimal(new int[] {
             5000,
@@ -377,28 +557,23 @@
             0,
             0});
             this.numericUpDown15.Name = "numericUpDown15";
-            this.numericUpDown15.Size = new System.Drawing.Size(161, 26);
+            this.numericUpDown15.Size = new System.Drawing.Size(161, 28);
             this.numericUpDown15.TabIndex = 49;
             this.numericUpDown15.ValueChanged += new System.EventHandler(this.numericUpDown15_ValueChanged);
             // 
             // numericUpDown16
             // 
             this.numericUpDown16.DecimalPlaces = 3;
-            this.numericUpDown16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown16.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.numericUpDown16.Location = new System.Drawing.Point(8, 59);
+            this.numericUpDown16.Location = new System.Drawing.Point(132, 15);
             this.numericUpDown16.Margin = new System.Windows.Forms.Padding(4);
-            this.numericUpDown16.Maximum = new decimal(new int[] {
-            65,
-            0,
-            0,
-            65536});
             this.numericUpDown16.Name = "numericUpDown16";
-            this.numericUpDown16.Size = new System.Drawing.Size(161, 26);
+            this.numericUpDown16.Size = new System.Drawing.Size(161, 28);
             this.numericUpDown16.TabIndex = 48;
             this.numericUpDown16.ValueChanged += new System.EventHandler(this.numericUpDown16_ValueChanged);
             // 
@@ -408,18 +583,19 @@
             this.textBox19.CausesValidation = false;
             this.textBox19.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox19.Enabled = false;
-            this.textBox19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox19.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox19.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox19.Location = new System.Drawing.Point(8, 16);
+            this.textBox19.Location = new System.Drawing.Point(8, 17);
             this.textBox19.Margin = new System.Windows.Forms.Padding(4);
             this.textBox19.Multiline = true;
             this.textBox19.Name = "textBox19";
             this.textBox19.ReadOnly = true;
             this.textBox19.ShortcutsEnabled = false;
-            this.textBox19.Size = new System.Drawing.Size(144, 34);
+            this.textBox19.Size = new System.Drawing.Size(116, 58);
             this.textBox19.TabIndex = 40;
             this.textBox19.TabStop = false;
             this.textBox19.Text = "Брак: объем\r\nвес";
+            this.textBox19.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBox19.WordWrap = false;
             this.textBox19.TextChanged += new System.EventHandler(this.textBox19_TextChanged);
             // 
@@ -428,7 +604,7 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox2.Location = new System.Drawing.Point(284, 134);
+            this.checkBox2.Location = new System.Drawing.Point(134, 480);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(101, 38);
@@ -437,24 +613,75 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // comboBox10
+            // groupBox6
             // 
-            this.comboBox10.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.comboBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox10.FormattingEnabled = true;
-            this.comboBox10.Location = new System.Drawing.Point(284, 180);
-            this.comboBox10.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox10.Name = "comboBox10";
-            this.comboBox10.Size = new System.Drawing.Size(164, 28);
-            this.comboBox10.TabIndex = 50;
-            this.comboBox10.SelectedIndexChanged += new System.EventHandler(this.comboBox10_SelectedIndexChanged);
+            this.groupBox6.Controls.Add(this.comboBox6);
+            this.groupBox6.Controls.Add(this.numericUpDown11);
+            this.groupBox6.Controls.Add(this.textBox15);
+            this.groupBox6.Location = new System.Drawing.Point(274, 411);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Size = new System.Drawing.Size(177, 129);
+            this.groupBox6.TabIndex = 43;
+            this.groupBox6.TabStop = false;
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.comboBox6.DropDownWidth = 200;
+            this.comboBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Location = new System.Drawing.Point(8, 58);
+            this.comboBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(164, 26);
+            this.comboBox6.TabIndex = 41;
+            this.comboBox6.SelectedIndexChanged += new System.EventHandler(this.comboBox6_SelectedIndexChanged);
+            // 
+            // numericUpDown11
+            // 
+            this.numericUpDown11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown11.Location = new System.Drawing.Point(8, 90);
+            this.numericUpDown11.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDown11.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.numericUpDown11.Name = "numericUpDown11";
+            this.numericUpDown11.Size = new System.Drawing.Size(165, 28);
+            this.numericUpDown11.TabIndex = 39;
+            this.numericUpDown11.ThousandsSeparator = true;
+            this.numericUpDown11.ValueChanged += new System.EventHandler(this.numericUpDown11_ValueChanged);
+            // 
+            // textBox15
+            // 
+            this.textBox15.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox15.CausesValidation = false;
+            this.textBox15.Cursor = System.Windows.Forms.Cursors.Default;
+            this.textBox15.Enabled = false;
+            this.textBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox15.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBox15.Location = new System.Drawing.Point(8, 16);
+            this.textBox15.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox15.Multiline = true;
+            this.textBox15.Name = "textBox15";
+            this.textBox15.ReadOnly = true;
+            this.textBox15.ShortcutsEnabled = false;
+            this.textBox15.Size = new System.Drawing.Size(161, 45);
+            this.textBox15.TabIndex = 40;
+            this.textBox15.TabStop = false;
+            this.textBox15.Text = "№3 Вид дефекта\r\nКоличество пачек";
+            this.textBox15.WordWrap = false;
+            this.textBox15.TextChanged += new System.EventHandler(this.textBox15_TextChanged);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox1.Location = new System.Drawing.Point(284, 54);
+            this.checkBox1.Location = new System.Drawing.Point(9, 480);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(117, 38);
@@ -468,11 +695,11 @@
             this.groupBox7.Controls.Add(this.comboBox7);
             this.groupBox7.Controls.Add(this.numericUpDown12);
             this.groupBox7.Controls.Add(this.textBox16);
-            this.groupBox7.Location = new System.Drawing.Point(833, 145);
+            this.groupBox7.Location = new System.Drawing.Point(454, 283);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox7.Size = new System.Drawing.Size(177, 129);
+            this.groupBox7.Size = new System.Drawing.Size(177, 125);
             this.groupBox7.TabIndex = 45;
             this.groupBox7.TabStop = false;
             // 
@@ -480,18 +707,18 @@
             // 
             this.comboBox7.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox7.DropDownWidth = 200;
-            this.comboBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox7.FormattingEnabled = true;
             this.comboBox7.Location = new System.Drawing.Point(8, 58);
             this.comboBox7.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(164, 24);
+            this.comboBox7.Size = new System.Drawing.Size(164, 26);
             this.comboBox7.TabIndex = 41;
             this.comboBox7.SelectedIndexChanged += new System.EventHandler(this.comboBox7_SelectedIndexChanged);
             // 
             // numericUpDown12
             // 
-            this.numericUpDown12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown12.Location = new System.Drawing.Point(8, 90);
             this.numericUpDown12.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown12.Maximum = new decimal(new int[] {
@@ -500,7 +727,7 @@
             0,
             0});
             this.numericUpDown12.Name = "numericUpDown12";
-            this.numericUpDown12.Size = new System.Drawing.Size(165, 26);
+            this.numericUpDown12.Size = new System.Drawing.Size(165, 28);
             this.numericUpDown12.TabIndex = 39;
             this.numericUpDown12.ThousandsSeparator = true;
             this.numericUpDown12.ValueChanged += new System.EventHandler(this.numericUpDown12_ValueChanged);
@@ -511,7 +738,7 @@
             this.textBox16.CausesValidation = false;
             this.textBox16.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox16.Enabled = false;
-            this.textBox16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox16.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBox16.Location = new System.Drawing.Point(8, 16);
             this.textBox16.Margin = new System.Windows.Forms.Padding(4);
@@ -519,7 +746,7 @@
             this.textBox16.Name = "textBox16";
             this.textBox16.ReadOnly = true;
             this.textBox16.ShortcutsEnabled = false;
-            this.textBox16.Size = new System.Drawing.Size(161, 34);
+            this.textBox16.Size = new System.Drawing.Size(161, 44);
             this.textBox16.TabIndex = 40;
             this.textBox16.TabStop = false;
             this.textBox16.Text = "№6 Вид дефекта\r\nКоличество пачек";
@@ -531,7 +758,7 @@
             this.groupBox5.Controls.Add(this.comboBox5);
             this.groupBox5.Controls.Add(this.numericUpDown10);
             this.groupBox5.Controls.Add(this.textBox14);
-            this.groupBox5.Location = new System.Drawing.Point(455, 145);
+            this.groupBox5.Location = new System.Drawing.Point(454, 15);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
@@ -543,19 +770,19 @@
             // 
             this.comboBox5.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox5.DropDownWidth = 200;
-            this.comboBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(8, 58);
+            this.comboBox5.Location = new System.Drawing.Point(8, 64);
             this.comboBox5.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(164, 24);
+            this.comboBox5.Size = new System.Drawing.Size(164, 26);
             this.comboBox5.TabIndex = 41;
             this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
             // 
             // numericUpDown10
             // 
-            this.numericUpDown10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown10.Location = new System.Drawing.Point(8, 90);
+            this.numericUpDown10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown10.Location = new System.Drawing.Point(8, 96);
             this.numericUpDown10.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown10.Maximum = new decimal(new int[] {
             3000,
@@ -563,7 +790,7 @@
             0,
             0});
             this.numericUpDown10.Name = "numericUpDown10";
-            this.numericUpDown10.Size = new System.Drawing.Size(165, 26);
+            this.numericUpDown10.Size = new System.Drawing.Size(165, 28);
             this.numericUpDown10.TabIndex = 39;
             this.numericUpDown10.ThousandsSeparator = true;
             this.numericUpDown10.ValueChanged += new System.EventHandler(this.numericUpDown10_ValueChanged);
@@ -574,15 +801,15 @@
             this.textBox14.CausesValidation = false;
             this.textBox14.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox14.Enabled = false;
-            this.textBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox14.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox14.Location = new System.Drawing.Point(8, 16);
+            this.textBox14.Location = new System.Drawing.Point(3, 20);
             this.textBox14.Margin = new System.Windows.Forms.Padding(4);
             this.textBox14.Multiline = true;
             this.textBox14.Name = "textBox14";
             this.textBox14.ReadOnly = true;
             this.textBox14.ShortcutsEnabled = false;
-            this.textBox14.Size = new System.Drawing.Size(161, 34);
+            this.textBox14.Size = new System.Drawing.Size(170, 47);
             this.textBox14.TabIndex = 40;
             this.textBox14.TabStop = false;
             this.textBox14.Text = "№4 Вид дефекта\r\nКоличество пачек";
@@ -594,11 +821,11 @@
             this.groupBox8.Controls.Add(this.comboBox8);
             this.groupBox8.Controls.Add(this.numericUpDown13);
             this.groupBox8.Controls.Add(this.textBox17);
-            this.groupBox8.Location = new System.Drawing.Point(455, 271);
+            this.groupBox8.Location = new System.Drawing.Point(454, 410);
             this.groupBox8.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox8.Size = new System.Drawing.Size(177, 138);
+            this.groupBox8.Size = new System.Drawing.Size(177, 130);
             this.groupBox8.TabIndex = 46;
             this.groupBox8.TabStop = false;
             // 
@@ -606,18 +833,18 @@
             // 
             this.comboBox8.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox8.DropDownWidth = 200;
-            this.comboBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox8.FormattingEnabled = true;
             this.comboBox8.Location = new System.Drawing.Point(8, 58);
             this.comboBox8.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(164, 24);
+            this.comboBox8.Size = new System.Drawing.Size(164, 26);
             this.comboBox8.TabIndex = 41;
             this.comboBox8.SelectedIndexChanged += new System.EventHandler(this.comboBox8_SelectedIndexChanged);
             // 
             // numericUpDown13
             // 
-            this.numericUpDown13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown13.Location = new System.Drawing.Point(8, 90);
             this.numericUpDown13.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown13.Maximum = new decimal(new int[] {
@@ -626,7 +853,7 @@
             0,
             0});
             this.numericUpDown13.Name = "numericUpDown13";
-            this.numericUpDown13.Size = new System.Drawing.Size(165, 26);
+            this.numericUpDown13.Size = new System.Drawing.Size(165, 28);
             this.numericUpDown13.TabIndex = 39;
             this.numericUpDown13.ThousandsSeparator = true;
             this.numericUpDown13.ValueChanged += new System.EventHandler(this.numericUpDown13_ValueChanged);
@@ -637,7 +864,7 @@
             this.textBox17.CausesValidation = false;
             this.textBox17.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox17.Enabled = false;
-            this.textBox17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox17.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBox17.Location = new System.Drawing.Point(8, 16);
             this.textBox17.Margin = new System.Windows.Forms.Padding(4);
@@ -645,7 +872,7 @@
             this.textBox17.Name = "textBox17";
             this.textBox17.ReadOnly = true;
             this.textBox17.ShortcutsEnabled = false;
-            this.textBox17.Size = new System.Drawing.Size(161, 34);
+            this.textBox17.Size = new System.Drawing.Size(161, 46);
             this.textBox17.TabIndex = 40;
             this.textBox17.TabStop = false;
             this.textBox17.Text = "№7 Вид дефекта\r\nКоличество пачек";
@@ -657,11 +884,11 @@
             this.groupBox4.Controls.Add(this.comboBox4);
             this.groupBox4.Controls.Add(this.numericUpDown9);
             this.groupBox4.Controls.Add(this.textBox13);
-            this.groupBox4.Location = new System.Drawing.Point(641, 21);
+            this.groupBox4.Location = new System.Drawing.Point(274, 283);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(177, 129);
+            this.groupBox4.Size = new System.Drawing.Size(177, 125);
             this.groupBox4.TabIndex = 42;
             this.groupBox4.TabStop = false;
             // 
@@ -669,18 +896,18 @@
             // 
             this.comboBox4.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox4.DropDownWidth = 200;
-            this.comboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(8, 58);
             this.comboBox4.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(164, 24);
+            this.comboBox4.Size = new System.Drawing.Size(164, 26);
             this.comboBox4.TabIndex = 41;
             this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
             // numericUpDown9
             // 
-            this.numericUpDown9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown9.Location = new System.Drawing.Point(8, 90);
             this.numericUpDown9.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown9.Maximum = new decimal(new int[] {
@@ -689,7 +916,7 @@
             0,
             0});
             this.numericUpDown9.Name = "numericUpDown9";
-            this.numericUpDown9.Size = new System.Drawing.Size(165, 26);
+            this.numericUpDown9.Size = new System.Drawing.Size(165, 28);
             this.numericUpDown9.TabIndex = 39;
             this.numericUpDown9.ThousandsSeparator = true;
             this.numericUpDown9.ValueChanged += new System.EventHandler(this.numericUpDown9_ValueChanged);
@@ -700,7 +927,7 @@
             this.textBox13.CausesValidation = false;
             this.textBox13.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox13.Enabled = false;
-            this.textBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox13.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBox13.Location = new System.Drawing.Point(8, 16);
             this.textBox13.Margin = new System.Windows.Forms.Padding(4);
@@ -708,145 +935,19 @@
             this.textBox13.Name = "textBox13";
             this.textBox13.ReadOnly = true;
             this.textBox13.ShortcutsEnabled = false;
-            this.textBox13.Size = new System.Drawing.Size(161, 34);
+            this.textBox13.Size = new System.Drawing.Size(161, 44);
             this.textBox13.TabIndex = 40;
             this.textBox13.TabStop = false;
             this.textBox13.Text = "№2 Вид дефекта\r\nКоличество пачек";
             this.textBox13.WordWrap = false;
             this.textBox13.TextChanged += new System.EventHandler(this.textBox13_TextChanged);
             // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.comboBox9);
-            this.groupBox9.Controls.Add(this.numericUpDown14);
-            this.groupBox9.Controls.Add(this.textBox18);
-            this.groupBox9.Location = new System.Drawing.Point(641, 145);
-            this.groupBox9.Margin = new System.Windows.Forms.Padding(1);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox9.Size = new System.Drawing.Size(177, 129);
-            this.groupBox9.TabIndex = 44;
-            this.groupBox9.TabStop = false;
-            // 
-            // comboBox9
-            // 
-            this.comboBox9.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.comboBox9.DropDownWidth = 200;
-            this.comboBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Location = new System.Drawing.Point(8, 58);
-            this.comboBox9.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(164, 24);
-            this.comboBox9.TabIndex = 41;
-            this.comboBox9.SelectedIndexChanged += new System.EventHandler(this.comboBox9_SelectedIndexChanged);
-            // 
-            // numericUpDown14
-            // 
-            this.numericUpDown14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown14.Location = new System.Drawing.Point(8, 90);
-            this.numericUpDown14.Margin = new System.Windows.Forms.Padding(4);
-            this.numericUpDown14.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.numericUpDown14.Name = "numericUpDown14";
-            this.numericUpDown14.Size = new System.Drawing.Size(165, 26);
-            this.numericUpDown14.TabIndex = 39;
-            this.numericUpDown14.ThousandsSeparator = true;
-            this.numericUpDown14.ValueChanged += new System.EventHandler(this.numericUpDown14_ValueChanged);
-            // 
-            // textBox18
-            // 
-            this.textBox18.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox18.CausesValidation = false;
-            this.textBox18.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox18.Enabled = false;
-            this.textBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox18.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox18.Location = new System.Drawing.Point(8, 16);
-            this.textBox18.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox18.Multiline = true;
-            this.textBox18.Name = "textBox18";
-            this.textBox18.ReadOnly = true;
-            this.textBox18.ShortcutsEnabled = false;
-            this.textBox18.Size = new System.Drawing.Size(161, 34);
-            this.textBox18.TabIndex = 40;
-            this.textBox18.TabStop = false;
-            this.textBox18.Text = "№5 Вид дефекта\r\nКоличество пачек";
-            this.textBox18.WordWrap = false;
-            this.textBox18.TextChanged += new System.EventHandler(this.textBox18_TextChanged);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.comboBox6);
-            this.groupBox6.Controls.Add(this.numericUpDown11);
-            this.groupBox6.Controls.Add(this.textBox15);
-            this.groupBox6.Location = new System.Drawing.Point(833, 21);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(1);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(177, 129);
-            this.groupBox6.TabIndex = 43;
-            this.groupBox6.TabStop = false;
-            // 
-            // comboBox6
-            // 
-            this.comboBox6.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.comboBox6.DropDownWidth = 200;
-            this.comboBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(8, 58);
-            this.comboBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(164, 24);
-            this.comboBox6.TabIndex = 41;
-            this.comboBox6.SelectedIndexChanged += new System.EventHandler(this.comboBox6_SelectedIndexChanged);
-            // 
-            // numericUpDown11
-            // 
-            this.numericUpDown11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown11.Location = new System.Drawing.Point(8, 90);
-            this.numericUpDown11.Margin = new System.Windows.Forms.Padding(4);
-            this.numericUpDown11.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.numericUpDown11.Name = "numericUpDown11";
-            this.numericUpDown11.Size = new System.Drawing.Size(165, 26);
-            this.numericUpDown11.TabIndex = 39;
-            this.numericUpDown11.ThousandsSeparator = true;
-            this.numericUpDown11.ValueChanged += new System.EventHandler(this.numericUpDown11_ValueChanged);
-            // 
-            // textBox15
-            // 
-            this.textBox15.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox15.CausesValidation = false;
-            this.textBox15.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox15.Enabled = false;
-            this.textBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox15.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox15.Location = new System.Drawing.Point(8, 16);
-            this.textBox15.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox15.Multiline = true;
-            this.textBox15.Name = "textBox15";
-            this.textBox15.ReadOnly = true;
-            this.textBox15.ShortcutsEnabled = false;
-            this.textBox15.Size = new System.Drawing.Size(161, 34);
-            this.textBox15.TabIndex = 40;
-            this.textBox15.TabStop = false;
-            this.textBox15.Text = "№3 Вид дефекта\r\nКоличество пачек";
-            this.textBox15.WordWrap = false;
-            this.textBox15.TextChanged += new System.EventHandler(this.textBox15_TextChanged);
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.comboBox3);
             this.groupBox3.Controls.Add(this.numericUpDown8);
             this.groupBox3.Controls.Add(this.textBox12);
-            this.groupBox3.Location = new System.Drawing.Point(455, 21);
+            this.groupBox3.Location = new System.Drawing.Point(274, 152);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -858,18 +959,18 @@
             // 
             this.comboBox3.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox3.DropDownWidth = 200;
-            this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(8, 58);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(164, 24);
+            this.comboBox3.Size = new System.Drawing.Size(164, 26);
             this.comboBox3.TabIndex = 41;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // numericUpDown8
             // 
-            this.numericUpDown8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown8.Location = new System.Drawing.Point(8, 90);
             this.numericUpDown8.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown8.Maximum = new decimal(new int[] {
@@ -878,7 +979,7 @@
             0,
             0});
             this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(165, 26);
+            this.numericUpDown8.Size = new System.Drawing.Size(165, 28);
             this.numericUpDown8.TabIndex = 39;
             this.numericUpDown8.ThousandsSeparator = true;
             this.numericUpDown8.ValueChanged += new System.EventHandler(this.numericUpDown8_ValueChanged);
@@ -889,7 +990,7 @@
             this.textBox12.CausesValidation = false;
             this.textBox12.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox12.Enabled = false;
-            this.textBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox12.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBox12.Location = new System.Drawing.Point(8, 16);
             this.textBox12.Margin = new System.Windows.Forms.Padding(4);
@@ -897,7 +998,7 @@
             this.textBox12.Name = "textBox12";
             this.textBox12.ReadOnly = true;
             this.textBox12.ShortcutsEnabled = false;
-            this.textBox12.Size = new System.Drawing.Size(161, 34);
+            this.textBox12.Size = new System.Drawing.Size(161, 46);
             this.textBox12.TabIndex = 40;
             this.textBox12.TabStop = false;
             this.textBox12.Text = "№1 Вид дефекта\r\nКоличество пачек";
@@ -913,7 +1014,7 @@
             0,
             0,
             131072});
-            this.numericUpDown7.Location = new System.Drawing.Point(8, 489);
+            this.numericUpDown7.Location = new System.Drawing.Point(9, 446);
             this.numericUpDown7.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown7.Maximum = new decimal(new int[] {
             20000,
@@ -926,7 +1027,7 @@
             0,
             131072});
             this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(268, 26);
+            this.numericUpDown7.Size = new System.Drawing.Size(214, 26);
             this.numericUpDown7.TabIndex = 37;
             this.numericUpDown7.Value = new decimal(new int[] {
             9500,
@@ -939,14 +1040,14 @@
             // 
             this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox11.Enabled = false;
-            this.textBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox11.Location = new System.Drawing.Point(8, 455);
+            this.textBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox11.Location = new System.Drawing.Point(9, 423);
             this.textBox11.Margin = new System.Windows.Forms.Padding(4);
             this.textBox11.Multiline = true;
             this.textBox11.Name = "textBox11";
             this.textBox11.ReadOnly = true;
             this.textBox11.ShortcutsEnabled = false;
-            this.textBox11.Size = new System.Drawing.Size(268, 26);
+            this.textBox11.Size = new System.Drawing.Size(214, 23);
             this.textBox11.TabIndex = 38;
             this.textBox11.TabStop = false;
             this.textBox11.Text = "Средняя плотность\r\n";
@@ -955,7 +1056,7 @@
             // numericUpDown6
             // 
             this.numericUpDown6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown6.Location = new System.Drawing.Point(8, 420);
+            this.numericUpDown6.Location = new System.Drawing.Point(9, 389);
             this.numericUpDown6.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown6.Maximum = new decimal(new int[] {
             5000,
@@ -968,7 +1069,7 @@
             0,
             0});
             this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(268, 26);
+            this.numericUpDown6.Size = new System.Drawing.Size(214, 26);
             this.numericUpDown6.TabIndex = 35;
             this.numericUpDown6.ThousandsSeparator = true;
             this.numericUpDown6.Value = new decimal(new int[] {
@@ -982,14 +1083,14 @@
             // 
             this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox10.Enabled = false;
-            this.textBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox10.Location = new System.Drawing.Point(8, 370);
+            this.textBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox10.Location = new System.Drawing.Point(9, 351);
             this.textBox10.Margin = new System.Windows.Forms.Padding(4);
             this.textBox10.Multiline = true;
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
             this.textBox10.ShortcutsEnabled = false;
-            this.textBox10.Size = new System.Drawing.Size(268, 27);
+            this.textBox10.Size = new System.Drawing.Size(214, 19);
             this.textBox10.TabIndex = 36;
             this.textBox10.TabStop = false;
             this.textBox10.Text = "Введите выпуск";
@@ -1004,7 +1105,7 @@
             0,
             0,
             196608});
-            this.numericUpDown5.Location = new System.Drawing.Point(8, 335);
+            this.numericUpDown5.Location = new System.Drawing.Point(9, 317);
             this.numericUpDown5.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown5.Maximum = new decimal(new int[] {
             65,
@@ -1012,12 +1113,12 @@
             0,
             65536});
             this.numericUpDown5.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
-            65536});
+            131072});
             this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(268, 26);
+            this.numericUpDown5.Size = new System.Drawing.Size(214, 26);
             this.numericUpDown5.TabIndex = 33;
             this.numericUpDown5.Value = new decimal(new int[] {
             25,
@@ -1031,13 +1132,13 @@
             this.textBox9.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox9.Enabled = false;
             this.textBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox9.Location = new System.Drawing.Point(8, 279);
+            this.textBox9.Location = new System.Drawing.Point(9, 271);
             this.textBox9.Margin = new System.Windows.Forms.Padding(4);
             this.textBox9.Multiline = true;
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
             this.textBox9.ShortcutsEnabled = false;
-            this.textBox9.Size = new System.Drawing.Size(268, 48);
+            this.textBox9.Size = new System.Drawing.Size(214, 47);
             this.textBox9.TabIndex = 34;
             this.textBox9.TabStop = false;
             this.textBox9.Text = "Введите объем 1 упаковки (м^3)";
@@ -1046,7 +1147,7 @@
             // numericUpDown4
             // 
             this.numericUpDown4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown4.Location = new System.Drawing.Point(8, 180);
+            this.numericUpDown4.Location = new System.Drawing.Point(9, 178);
             this.numericUpDown4.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown4.Maximum = new decimal(new int[] {
             2410,
@@ -1059,10 +1160,10 @@
             0,
             0});
             this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(268, 26);
+            this.numericUpDown4.Size = new System.Drawing.Size(214, 26);
             this.numericUpDown4.TabIndex = 31;
             this.numericUpDown4.Value = new decimal(new int[] {
-            1200,
+            1000,
             0,
             0,
             0});
@@ -1072,22 +1173,22 @@
             // 
             this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox7.Enabled = false;
-            this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox7.Location = new System.Drawing.Point(8, 153);
+            this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox7.Location = new System.Drawing.Point(9, 151);
             this.textBox7.Margin = new System.Windows.Forms.Padding(4);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
             this.textBox7.ShortcutsEnabled = false;
-            this.textBox7.Size = new System.Drawing.Size(268, 19);
+            this.textBox7.Size = new System.Drawing.Size(214, 23);
             this.textBox7.TabIndex = 32;
             this.textBox7.TabStop = false;
-            this.textBox7.Text = "Выберите длинну";
+            this.textBox7.Text = "Выбирите длинну";
             this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // numericUpDown3
             // 
             this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown3.Location = new System.Drawing.Point(8, 246);
+            this.numericUpDown3.Location = new System.Drawing.Point(9, 237);
             this.numericUpDown3.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             1210,
@@ -1100,7 +1201,7 @@
             0,
             0});
             this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(268, 26);
+            this.numericUpDown3.Size = new System.Drawing.Size(214, 26);
             this.numericUpDown3.TabIndex = 29;
             this.numericUpDown3.Value = new decimal(new int[] {
             600,
@@ -1113,22 +1214,22 @@
             // 
             this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox6.Enabled = false;
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox6.Location = new System.Drawing.Point(8, 219);
+            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox6.Location = new System.Drawing.Point(9, 212);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
             this.textBox6.ShortcutsEnabled = false;
-            this.textBox6.Size = new System.Drawing.Size(268, 19);
+            this.textBox6.Size = new System.Drawing.Size(214, 23);
             this.textBox6.TabIndex = 30;
             this.textBox6.TabStop = false;
-            this.textBox6.Text = "Выберите ширину";
+            this.textBox6.Text = "Выбирите ширину";
             this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // numericUpDown2
             // 
             this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown2.Location = new System.Drawing.Point(8, 118);
+            this.numericUpDown2.Location = new System.Drawing.Point(9, 117);
             this.numericUpDown2.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             205,
@@ -1141,7 +1242,7 @@
             0,
             0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(268, 26);
+            this.numericUpDown2.Size = new System.Drawing.Size(214, 26);
             this.numericUpDown2.TabIndex = 22;
             this.numericUpDown2.Value = new decimal(new int[] {
             100,
@@ -1154,32 +1255,32 @@
             // 
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox5.Enabled = false;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox5.Location = new System.Drawing.Point(8, 91);
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox5.Location = new System.Drawing.Point(9, 90);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
             this.textBox5.ShortcutsEnabled = false;
-            this.textBox5.Size = new System.Drawing.Size(268, 19);
+            this.textBox5.Size = new System.Drawing.Size(214, 23);
             this.textBox5.TabIndex = 28;
             this.textBox5.TabStop = false;
-            this.textBox5.Text = "Выберите толщину";
+            this.textBox5.Text = "Выбирите толщину";
             this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // textBox4
             // 
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Enabled = false;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox4.Location = new System.Drawing.Point(8, 27);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.ShortcutsEnabled = false;
-            this.textBox4.Size = new System.Drawing.Size(268, 19);
+            this.textBox4.Size = new System.Drawing.Size(214, 23);
             this.textBox4.TabIndex = 26;
             this.textBox4.TabStop = false;
-            this.textBox4.Text = "Выберите марку";
+            this.textBox4.Text = "Выбирите марку";
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // comboBox2
@@ -1187,18 +1288,17 @@
             this.comboBox2.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(8, 54);
+            this.comboBox2.Location = new System.Drawing.Point(9, 54);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(267, 28);
-            this.comboBox2.Sorted = true;
+            this.comboBox2.Size = new System.Drawing.Size(213, 28);
             this.comboBox2.TabIndex = 27;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // button7
             // 
             this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button7.Location = new System.Drawing.Point(884, 663);
             this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
@@ -1211,8 +1311,8 @@
             // button6
             // 
             this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.Location = new System.Drawing.Point(564, 663);
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button6.Location = new System.Drawing.Point(562, 663);
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(161, 52);
@@ -1224,13 +1324,13 @@
             // button5
             // 
             this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(733, 663);
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Location = new System.Drawing.Point(731, 663);
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(145, 52);
             this.button5.TabIndex = 52;
-            this.button5.Text = "Печать за\r\nсмену";
+            this.button5.Text = "Сохранить смену в файл";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -1253,15 +1353,26 @@
             this.MaximizeBox = false;
             this.Name = "Form3";
             this.Text = "Отчет по продуктам";
+            this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
@@ -1274,12 +1385,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
@@ -1352,14 +1457,19 @@
         private System.Windows.Forms.NumericUpDown numericUpDown14;
         private System.Windows.Forms.TextBox textBox18;
         private System.Windows.Forms.NumericUpDown numericUpDown15;
-        private System.Windows.Forms.ComboBox comboBox10;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox20;
-        private System.Windows.Forms.TextBox textBox22;
         private System.Windows.Forms.TextBox textBox23;
+        private System.Windows.Forms.NumericUpDown numericUpDown17;
+        private System.Windows.Forms.TextBox textBox21;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button2;
     }
 }

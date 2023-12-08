@@ -15,17 +15,16 @@ using System.Windows.Forms;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using DocumentFormat.OpenXml.Spreadsheet;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ShiftReportApp1
 {
     public partial class Form2 : Form
     {
+        private System.Windows.Forms.ToolTip toolTip2;
         public Form2()
         {
             InitializeComponent();
-
-            checkBox17.Checked = true;
-            checkBox18.Checked = true;
             checkBox15.Checked = true;
             checkBox14.Checked = true;
             checkBox13.Checked = true;
@@ -40,62 +39,101 @@ namespace ShiftReportApp1
             groupBox4.Enabled = false;
             groupBox3.Enabled = false;
 
-        }
+            checkedListBox1.Enabled = false;
+            checkedListBox2.Enabled = false;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
 
-        private void ExecuteQuery(string query)
+            checkBox6.Enabled = false;
+            checkBox7.Enabled = false;
+            checkBox8.Enabled = false;
+            checkBox9.Enabled = false;
+            checkBox20.Enabled = false;
+            InitializeToolTip();
+    }
+        private void InitializeToolTip()
+        {
+            // Создаем экземпляр ToolTip
+            toolTip2 = new System.Windows.Forms.ToolTip();
+
+            // Настроим параметры ToolTip
+            toolTip2.AutoPopDelay = 5000; // Время в миллисекундах, как долго подсказка видна после того, как мышь ушла
+            toolTip2.InitialDelay = 1000; // Время в миллисекундах, как долго мышь должна находиться над элементом, прежде чем появится подсказка
+            toolTip2.ReshowDelay = 500; // Время в миллисекундах перед появлением подсказки, если пользователь вернулся снова
+
+            // Задаем текст подсказки для элементов формы
+            toolTip2.SetToolTip(numericUpDown1, "Номер недели в году");
+            toolTip2.SetToolTip(checkedListBox1, "Список продуктов, производившихся за выбранный период");
+            toolTip2.SetToolTip(checkedListBox2, "Список продуктов, по которым нужно отобразить статистику");
+            toolTip2.SetToolTip(button1, "Переместить весь список продуктов");
+            toolTip2.SetToolTip(button3, "Переместить весь список продуктов");
+            toolTip2.SetToolTip(button2, "Переместить выбранные продукты");
+            toolTip2.SetToolTip(button4, "Переместить выбранные продукты");
+
+        }
+        // Обработчик события при наведении мыши на элемент
+        private void numericUpDown1_MouseHover(object sender, EventArgs e) { toolTip2.Show("Привет, это подсказка!", numericUpDown1); }
+        private void checkedListBox1_MouseHover(object sender, EventArgs e) { toolTip2.Show("Привет, это подсказка!", checkedListBox1); }
+        private void checkedListBox2_MouseHover(object sender, EventArgs e) { toolTip2.Show("Привет, это подсказка!", checkedListBox2); }
+        private void button1_MouseHover(object sender, EventArgs e) { toolTip2.Show("Привет, это подсказка!", button1); }
+        private void button3_MouseHover(object sender, EventArgs e) { toolTip2.Show("Привет, это подсказка!", button3); }
+        private void button2_MouseHover(object sender, EventArgs e) { toolTip2.Show("Привет, это подсказка!", button2); }
+        private void button4_MouseHover(object sender, EventArgs e) { toolTip2.Show("Привет, это подсказка!", button4); }
+
+        private void ExtractProduct(DateTime varDate1, DateTime varDate2, IEnumerable<int> shiftDays)
         {
             try
             {
-                ProjectLogger.LogDebug("Начало ExecuteQuery");
+                ProjectLogger.LogDebug("Начало ExtractProduct");
                 checkedListBox1.Items.Clear();
+                checkedListBox2.Items.Clear();
 
-                DataBaseConnection dbConnection = new DataBaseConnection();
-                NpgsqlConnection connection = dbConnection.GetConnection();
+                LINQRequest lINQRequest = new LINQRequest();
+                List<ItemReportList> prodQualityReports = lINQRequest.SetReportList(varDate1, varDate2, shiftDays);
 
-                connection.Open();
-                using (NpgsqlCommand cmd = new NpgsqlCommand(query, connection))
-                {
-                    (DateTime varDate1, DateTime varDate2) = GetDateRange();
-
-                    cmd.Parameters.AddWithValue("@varDate1", varDate1);
-                    cmd.Parameters.AddWithValue("@varDate2", varDate2);
-
-                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                    foreach (var report in prodQualityReports)
                     {
-                        while (reader.Read())
+                        string productName = report.ProductNames;
+                        bool unspecified = report.Unspecifies;
+                        int prodDepth = report.Depth;
+                        int length = report.Length;
+                        int width = report.Width;
+
+                        string outputString;
+
+                        if (productName.Contains("М"))
                         {
-                            string productName = $"{reader["product_name"]}";
-                            string depth = $"{reader["prod_depth"]}";
-                            string length = $"{reader["length"]}";
-                            string width = $"{reader["width"]}";
-                            bool unspecified = (bool)reader["unspecified"];
-
-                            string outputString;
-
                             if (unspecified)
                             {
-                                // Последние три символа productName
-                                string lastThreeChars = productName.Substring(productName.Length - 3);
-                                outputString = $"{productName} {length}x{width}x{depth}({lastThreeChars})";
+
+                                string lastThreeChars = productName.Split('М')[1];
+                                outputString = $"{productName.Split('М')[0]} {length}x{width}x{prodDepth} ({lastThreeChars})";
                             }
                             else
                             {
-                                outputString = $"{productName} {length}x{width}x{depth}";
+                            outputString = $"{productName} {length}x{width}x{prodDepth}";
                             }
-
-                            checkedListBox1.Items.Add(outputString);
                         }
+                        else
+                        {
+                            outputString = $"{productName} {length}x{width}x{prodDepth}";
+                        }
+
+                        checkedListBox1.Items.Add(outputString);
                     }
-                }
-                ProjectLogger.LogDebug("Конец ExecuteQuery");
+               
+                ProjectLogger.LogDebug("Конец ExtractProduct");
             }
             catch (Exception ex)
             {
                 // Обработка ошибки
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ProjectLogger.LogException("Ошибка в ExecuteQuery", ex);
+                ProjectLogger.LogException("Ошибка в ExtractProduct", ex);
             }
         }
+
         private (DateTime, DateTime) GetDateRange()
         {
             DateTime now = DateTime.Now;
@@ -214,6 +252,14 @@ namespace ShiftReportApp1
             numericUpDown3.Enabled = false;
             groupBox4.Enabled = false;
             groupBox3.Enabled = false;
+            checkedListBox1.Enabled = false;
+            checkedListBox2.Enabled = false;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            checkedListBox1.Items.Clear();
+            checkedListBox2.Items.Clear();
 
             // Проверяем выбранный элемент в ComboBox
             switch (comboBox1.SelectedIndex)
@@ -223,21 +269,45 @@ namespace ShiftReportApp1
                     dateTimePicker2.Enabled = true;
                     groupBox4.Enabled = true;
                     groupBox3.Enabled = true;
+                    checkedListBox1.Enabled = true;
+                    checkedListBox2.Enabled = true;
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     break;
                 case 3: // За неделю
                     numericUpDown1.Enabled = true;
                     groupBox4.Enabled = true;
                     groupBox3.Enabled = true;
+                    checkedListBox1.Enabled = true;
+                    checkedListBox2.Enabled = true;
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     break;
                 case 5: // За месяц
                     numericUpDown3.Enabled = true;
                     groupBox4.Enabled = true;
                     groupBox3.Enabled = true;
+                    checkedListBox1.Enabled = true;
+                    checkedListBox2.Enabled = true;
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     break;
                 case 4: // За год
                     numericUpDown2.Enabled = true;
                     groupBox4.Enabled = true;
                     groupBox3.Enabled = true;
+                    checkedListBox1.Enabled = true;
+                    checkedListBox2.Enabled = true;
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     break;
                 default: // За предыдущую смену и За предыдущие сутки
                     break;
@@ -247,23 +317,33 @@ namespace ShiftReportApp1
 
             if (radioButton1.Checked && now.Hour >= 9 && now.Hour < 21 && comboBox1.SelectedIndex == 0)
             {
-                ExecuteQuery(Names.Request(1)); // за предыдущую смену после 9-00
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays); // за предыдущую смену после 9-00
             }
             else if (radioButton1.Checked && now.Hour <= 9 && comboBox1.SelectedIndex == 0)
             {
-                ExecuteQuery(Names.Request(2)); // за предыдущую смену после 00-00 до 9-00
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1 };
+                ExtractProduct(varDate1, varDate2, shiftDays); // за предыдущую смену после 00-00 до 9-00
             }
             else if (radioButton1.Checked && now.Hour >= 21 && comboBox1.SelectedIndex == 0)
             {
-                ExecuteQuery(Names.Request(3)); //за предыдущую смену после 21-00 до 23-59
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1 };
+                ExtractProduct(varDate1, varDate2, shiftDays); //за предыдущую смену после 21-00 до 23-59
             }
             else if (radioButton1.Checked && comboBox1.SelectedIndex == 1)
             {
-                ExecuteQuery(Names.Request(4)); // за предыдущие сутки после 9-00 до 23-59
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1, 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays); // за предыдущие сутки после 9-00 до 23-59
             }
             else if (radioButton1.Checked && comboBox1.SelectedIndex == 2)
             {
-                ExecuteQuery(Names.Request(5)); // с даты по дату
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1, 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays);  // с даты по дату
             }
         }
 
@@ -321,7 +401,9 @@ namespace ShiftReportApp1
         {
             if (radioButton1.Checked)
             {
-                ExecuteQuery(Names.Request(5));
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1, 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays);
             }
         }
 
@@ -329,7 +411,9 @@ namespace ShiftReportApp1
         {
             if (radioButton1.Checked)
             {
-                ExecuteQuery(Names.Request(5));
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1, 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays);
             }
         }
 
@@ -337,7 +421,9 @@ namespace ShiftReportApp1
         {
             if (radioButton1.Checked)
             {
-                ExecuteQuery(Names.Request(5));
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1, 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays);
             }
         }
 
@@ -345,7 +431,9 @@ namespace ShiftReportApp1
         {
             if (radioButton1.Checked)
             {
-                ExecuteQuery(Names.Request(5));
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1, 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays);
             }
         }
 
@@ -353,7 +441,9 @@ namespace ShiftReportApp1
         {
             if (radioButton1.Checked)
             {
-                ExecuteQuery(Names.Request(5));
+                (DateTime varDate1, DateTime varDate2) = GetDateRange();
+                List<int> shiftDays = new List<int> { 1, 2 };
+                ExtractProduct(varDate1, varDate2, shiftDays);
             }
         }
 
@@ -429,20 +519,7 @@ namespace ShiftReportApp1
 
         private void checkBox16_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox16.Checked == true)
-            {
-                checkBox17.Checked = false;
-                checkBox18.Checked = false;
-                checkBox17.Enabled = false;
-                checkBox18.Enabled = false;
-            }
-            else
-            {
-                checkBox17.Enabled = true;
-                checkBox18.Enabled = true;
-                checkBox17.Checked = true;
-                checkBox18.Checked = true;
-            }
+            
         }
 
         private void checkBox17_CheckedChanged(object sender, EventArgs e)
@@ -457,7 +534,10 @@ namespace ShiftReportApp1
 
         private void checkBox10_CheckedChanged(object sender, EventArgs e)
         {
-
+            checkBox6.Enabled = checkBox10.Checked ? true : false;
+            checkBox7.Enabled = checkBox10.Checked ? true : false;
+            checkBox8.Enabled = checkBox10.Checked ? true : false;
+            checkBox9.Enabled = checkBox10.Checked ? true : false;
         }
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
@@ -532,30 +612,44 @@ namespace ShiftReportApp1
 
         private void button6_Click(object sender, EventArgs e)
         {
+            List<int> shifts = new List<int> { };
             //инициализируем состояние кнопок смен
-            int numShift1 = checkBox9.Checked ? 1 : 0;
-            int numShift2 = checkBox8.Checked ? 2 : 0;
-            int numShift3 = checkBox7.Checked ? 3 : 0;
-            int numShift4 = checkBox6.Checked ? 4 : 0;
+            if (checkBox10.Checked)
+            {
+                int numShift1 = checkBox9.Checked ? 1 : 0;
+                int numShift2 = checkBox8.Checked ? 2 : 0;
+                int numShift3 = checkBox7.Checked ? 3 : 0;
+                int numShift4 = checkBox6.Checked ? 4 : 0;
+                shifts = new List<int> { numShift1, numShift2, numShift3, numShift4 };
+            }
+            else if(checkBox1.Checked)
+            {
+                int numShift1 = checkBox2.Checked ? 1 : 0;
+                int numShift2 = checkBox3.Checked ? 2 : 0;
+                int numShift3 = checkBox4.Checked ? 3 : 0;
+                int numShift4 = checkBox5.Checked ? 4 : 0;
+                shifts = new List<int> { numShift1, numShift2, numShift3, numShift4 };
+            }
 
-            string typeStops1 = checkBox14.Checked ? "Технологические" : "_";
+            string typeStops1 = checkBox14.Checked ? "Технологический" : "_";
             string typeStops2 = checkBox13.Checked ? "Настройки" : "_";
-            string typeStops3 = checkBox12.Checked ? "Поломки" : "_";
-            string typeStops4 = checkBox11.Checked ? "ППР" : "_";
+            string typeStops3 = checkBox12.Checked ? "Неплановый" : "_";
+            string typeStops4 = checkBox11.Checked ? "Плановый" : "_";
+            List<string> stopCategoryes = new List<string> { typeStops1, typeStops2, typeStops3, typeStops4 };
 
             // инициализируем даты
             (DateTime varDate1, DateTime varDate2) = GetDateRange();
             DateTime now = DateTime.Now;
 
+            var resultCall = GetQueryNumber(now);
+            int getMethod = resultCall.Item1;
+            List<int> shiftsDay = resultCall.Item2;
+
             // запишем в список все отмеченные элементы в checkedListBox2
             List<string> prodList = checkedListBox2.CheckedItems.Cast<string>().ToList();
 
-
-            int queryNumb = GetQueryNumber(now);
-
-            SaAsDi saver = new SaAsDi();  // Создаем экземпляр класса SaAsDi
-            saver.SaveExcelFile(queryNumb, prodList, varDate1, varDate2, numShift1, numShift2, numShift3, numShift4,
-                typeStops1, typeStops2, typeStops3, typeStops4);       // Вызываем метод сохранения
+            SaveInXML saver = new SaveInXML();  // Создаем экземпляр класса SaAsDi
+            saver.SaveExcelFile(getMethod, prodList, shiftsDay, shifts, stopCategoryes, varDate1, varDate2); // Вызываем метод сохранения
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -569,78 +663,124 @@ namespace ShiftReportApp1
             form2.Close();
         }
 
-        private int GetQueryNumber(DateTime now)
+        private (int, List<int>) GetQueryNumber(DateTime now)
         {
+            List<int> list = new List<int>();
+            // продукты
             if (radioButton1.Checked)
             {
-                if (comboBox1.SelectedIndex >= 1) // период с по
+                if (!checkBox21.Checked)
                 {
-                    if (checkBox10.Checked && !checkBox16.Checked) // разбивка продуктов по сменам
-                        return 11;
-                    if (checkBox16.Checked && !checkBox10.Checked) // брак
-                        return 12;
-                    if (checkBox16.Checked && checkBox10.Checked) // брак разбивка по сменам
-                        return 13;
-                    return 6;
-                }
-
-                if (comboBox1.SelectedIndex == 1) // сутки
-                    return checkBox16.Checked ? 12 : 7; // брак / продукты
-
-                if (comboBox1.SelectedIndex == 0) // сутки
-                {
-                    if (!checkBox16.Checked) // продукт
+                    if (comboBox1.SelectedIndex > 1) // период с по
                     {
-                        if (now.Hour >= 9 && now.Hour < 21) // за ночь
-                            return 8;
-
-                        if (now.Hour <= 9 || now.Hour >= 21) // за день
-                            return 9;
+                        list = new List<int> { 1, 2 };
+                        if (checkBox10.Checked && !checkBox16.Checked) // разбивка продуктов по сменам
+                        {
+                            return (3, list);
+                        }
+                        if (checkBox16.Checked && !checkBox10.Checked) // брак
+                        {
+                            return (4, list);
+                        }
+                        if (checkBox16.Checked && checkBox10.Checked) // брак разбивка по сменам
+                        {
+                            return (5, list);
+                        }
+                        return (0, list);
                     }
-                    else
+
+                    if (comboBox1.SelectedIndex == 1) // сутки
                     {
-                        return 12; // брак
+                        list = new List<int> { 1, 2 };
+                        return (checkBox16.Checked ? 4 : 2, list); // брак / продукты
+                    }
+                    if (comboBox1.SelectedIndex == 0) // смену
+                    {
+                        if (!checkBox16.Checked) // продукт
+                        {
+                            if (now.Hour >= 9 && now.Hour < 21) // за ночь
+                            {
+                                list = new List<int> { 2 };
+                                return (2, list);
+                            }
+                            if (now.Hour <= 9 || now.Hour >= 21) // за день
+                            {
+                                list = new List<int> { 1 };
+                                return (2, list);
+                            }
+                        }
+                        else
+                        {
+                            list = new List<int> { 1, 2 };
+                            return (4, list); // брак
+                        }
                     }
                 }
             }
-
+            // простои
             if (radioButton2.Checked)
             {
                 if (!checkBox21.Checked)
                 {
-                    if (comboBox1.SelectedIndex >= 1) // период с по
+                    if (comboBox1.SelectedIndex >= 2) // период с по
                     {
+                        list = new List<int> { 1, 2 };
                         if (checkBox15.Checked && !checkBox1.Checked) // разбивка простоев по типам
-                            return 22;
+                        {
+                            return (11, list);
+                        }
+                        else if (!checkBox15.Checked && checkBox1.Checked) // разбивка простоев по типам и сменам
+                        {
+                            return (12, list);
+                        }
                         else if (checkBox15.Checked && checkBox1.Checked) // разбивка простоев по типам и сменам
-                            return 24;
-                        else if (!checkBox15.Checked && checkBox1.Checked) // разбивка простоев по сменам
-                            return 23;
+                        {
+                            return (14, list);
+                        }
+                        return (10, list);
+
+                    }
+                    else if (comboBox1.SelectedIndex == 1) // предыдущая смена
+                    {
+                        list = new List<int> { 1, 2 };
+                        return (15, list);
                     }
                     else if (comboBox1.SelectedIndex == 0) // предыдущая смена
                     {
                         if (!checkBox15.Checked) // без разбивки простоев по типам
                         {
                             if (now.Hour >= 9 && now.Hour < 21) // за ночь
-                                return 27;
+                            {
+                                list = new List<int> { 2 };
+                            }
                             else if (now.Hour <= 9 || now.Hour >= 21) // за день
-                                return 26;
+                            {
+                                list = new List<int> { 1 };
+                            }
+                            return (15, list);
                         }
                         else // разбивка простоев по типам
                         {
                             if (now.Hour >= 9 && now.Hour < 21) // за ночь
-                                return 29;
+                            {
+                                list = new List<int> { 2 };
+                            }
                             else if (now.Hour <= 9 || now.Hour >= 21) // за день
-                                return 28;
+                            {
+                                list = new List<int> { 1 };
+                            }
+                            return (14, list);
                         }
                     }
                 }
-                else if (checkBox21.Checked)
-                    return 25;
-                // Возвращаем значение по умолчанию, если ни одно из условий не сработало
-                return 21;
             }
-            return 0;
+            if (checkBox21.Checked)
+            {
+                list = new List<int> { 1, 2 };
+                return (13, list);
+            }
+            // Возвращаем значение по умолчанию, если ни одно из условий не сработало
+            return (0, new List<int>());
         }
 
 
@@ -649,20 +789,36 @@ namespace ShiftReportApp1
             (DateTime varDate1, DateTime varDate2) = GetDateRange();
             DateTime now = DateTime.Now;
 
-            int queryNumb = GetQueryNumber(now);
+            var resultCall = GetQueryNumber(now);
+            int getMethod = resultCall.Item1;
+            List<int> shiftsDay = resultCall.Item2;
 
-            int numShift1 = checkBox9.Checked ? 1 : 0;
-            int numShift2 = checkBox8.Checked ? 2 : 0;
-            int numShift3 = checkBox7.Checked ? 3 : 0;
-            int numShift4 = checkBox6.Checked ? 4 : 0;
+            List<int> shifts = new List<int> { };
+            //инициализируем состояние кнопок смен
+            if (checkBox10.Checked)
+            {
+                int numShift1 = checkBox9.Checked ? 1 : 0;
+                int numShift2 = checkBox8.Checked ? 2 : 0;
+                int numShift3 = checkBox7.Checked ? 3 : 0;
+                int numShift4 = checkBox6.Checked ? 4 : 0;
+                shifts = new List<int> { numShift1, numShift2, numShift3, numShift4 };
+            }
+            else if (checkBox1.Checked)
+            {
+                int numShift1 = checkBox2.Checked ? 1 : 0;
+                int numShift2 = checkBox3.Checked ? 2 : 0;
+                int numShift3 = checkBox4.Checked ? 3 : 0;
+                int numShift4 = checkBox5.Checked ? 4 : 0;
+                shifts = new List<int> { numShift1, numShift2, numShift3, numShift4 };
+            }
 
-            string typeStops1 = checkBox14.Checked ? "Технологические" : "_";
+            string typeStops1 = checkBox14.Checked ? "Технологический" : "_";
             string typeStops2 = checkBox13.Checked ? "Настройки" : "_";
-            string typeStops3 = checkBox12.Checked ? "Поломки" : "_";
-            string typeStops4 = checkBox11.Checked ? "ППР" : "_";
+            string typeStops3 = checkBox12.Checked ? "Неплановый" : "_";
+            string typeStops4 = checkBox11.Checked ? "Плановый" : "_";
+            List<string> stopCategoryes = new List<string> { typeStops1, typeStops2, typeStops3, typeStops4 };
 
-            Form7 form7 = new Form7(varDate1, varDate2, queryNumb, numShift1, numShift2, numShift3, numShift4,
-                typeStops1, typeStops2, typeStops3, typeStops4);
+            Form7 form7 = new Form7(getMethod, varDate1, varDate2, shiftsDay, shifts, stopCategoryes);
             form7.Show();
         }
 

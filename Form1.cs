@@ -51,14 +51,17 @@ namespace ShiftReportApp1
             try
             {
                 connection.Open();
+                connection.Close();
+                connection.Dispose();
                 return true;
+                
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;
             }
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
