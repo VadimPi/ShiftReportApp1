@@ -7,11 +7,15 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using Path = System.IO.Path;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace ShiftReportApp1
 {
@@ -291,7 +295,7 @@ namespace ShiftReportApp1
                             , "Подтверждение введенных данных",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,
-                            new Font("Arial", 14));
+                            new System.Drawing.Font("Arial", 14));
 
                         if (result == DialogResult.OK)
                         {
@@ -428,8 +432,8 @@ namespace ShiftReportApp1
                     dataGridView1.Text = "Неверный формат отчета.";
                 }
 
-                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 7); // Устанавливаем шрифт и размер
-                dataGridView1.DefaultCellStyle.Font = new Font("Arial", 8); // Устанавливаем шрифт и размер
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Arial", 7); // Устанавливаем шрифт и размер
+                dataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Arial", 8); // Устанавливаем шрифт и размер
                 dataGridView1.RowTemplate.Height = 16; // Устанавливаем высоту строки
                 dataGridView1.ColumnHeadersHeight = 16; // Устанавливаем высоту заголовка столбца
                 dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.Single;
@@ -487,6 +491,205 @@ namespace ShiftReportApp1
             int getMethod = 15;
             SaveInXML saver = new SaveInXML();  // Создаем экземпляр класса SaAsDi
             saver.SaveExcelFile(getMethod, prodList, shiftsDay, shifts, stopCategoryes, getDate1, getDate2); // Вызываем метод сохранения
+        }
+
+        private void SendReport(int getMethod, List<string> prodList, List<int> shiftsDays, List<int> shifts, List<string> stopCategoryes,
+             DateTime varDate1 = default, DateTime varDate2 = default)
+        {
+            LINQRequest newReport = new LINQRequest();
+            List<DataTable> dataTablePivot = newReport.ExtractProductList(getMethod, varDate1, varDate2, shiftsDays, shifts, stopCategoryes);
+            string templateFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "qtemp5.xlsx");
+            var workbook = new XLWorkbook(templateFilePath);
+            ExcelPivoteToAttach(workbook, dataTablePivot, getMethod, shiftsDays, shifts, stopCategoryes, varDate1, varDate2);
+        }
+        public void ExcelPivoteToAttach(XLWorkbook workbook, List<DataTable> dataTablePivot, int getMethod, List<int> shiftsDays, List<int> shifts, List<string> stopCategoryes,
+             DateTime varDate1 = default, DateTime varDate2 = default)
+        {
+            try
+            {
+                ProjectLogger.LogDebug("Начало метода WriteToExcel24hours");
+                var worksheet = workbook.Worksheet(1);
+                int firstRow = 0, firstRow2 = 0, countRow = 0, countRow1 = 0;
+                DataTable dataTable1 = dataTablePivot[0];
+                DataTable dataTable2 = dataTablePivot[1];
+                int shiftNumConst = 0;
+                if (dataTable1.Rows[0][1] != null)
+                {
+                    shiftNumConst = (int)dataTable1.Rows[0][1];
+                }
+                DateTime shiftDate = varDate1.Date;
+                shiftDate.ToShortDateString();
+                worksheet.Cell(5, 3).Value = shiftDate;
+                worksheet.Cell(5, 9).Value = shiftNumConst;
+                worksheet.Cell(5, 5).Value = shiftsDays[0] == 1 ? "8:00-20:00" : "20:00-8:00";
+
+                int sumPack1 = 0, sumOS1 = 0;
+                float sumVolume1 = 0, sumWeight1 = 0, sumVolumeOS1 = 0, sumWeightOS1 = 0;
+                float sumVolumeRej1 = 0, sumWeightRej1 = 0, sumRegarding1 = 0;
+
+                for (int row = 0; row < dataTable1.Rows.Count; row++) // блок заполнения смен
+                {
+                    countRow++;
+                    if ((bool)dataTable1.Rows[row][17]) // подсчет переорта см 1
+                    {
+                        sumRegarding1 = (float)(sumRegarding1 + Math.Round((float)dataTable1.Rows[row][11]));
+                    }
+
+                    firstRow = 19; // выбор первой строки сменных от смены
+
+                    worksheet.Cell(countRow + firstRow, 1).Value = countRow; // порядковый номер продукта (в Кандыгаше №партии
+                    worksheet.Cell(countRow + firstRow, 2).Value = (int)dataTable1.Rows[row][1]; // смена
+                    worksheet.Cell(countRow + firstRow, 3).Value = GetProductNameDay(dataTable1, row); // наименование продукта
+                    worksheet.Cell(countRow + firstRow, 10).Value = (float)dataTable1.Rows[row][8]; // Объем 1 пачки
+                    worksheet.Cell(countRow + firstRow, 4).Value = (float)dataTable1.Rows[row][7]; // средняя плотность
+                    worksheet.Cell(countRow + firstRow, 11).Value = (int)dataTable1.Rows[row][9]; // пачек гп
+                    worksheet.Cell(countRow + firstRow, 12).Value = Math.Round((float)dataTable1.Rows[row][10], 3); // объем
+                    worksheet.Cell(countRow + firstRow, 13).Value = Math.Round((float)dataTable1.Rows[row][11]); // вес
+                    worksheet.Cell(countRow + firstRow, 6).Value = (float)dataTable1.Rows[row][18]; // плотность ос
+                    worksheet.Cell(countRow + firstRow, 15).Value = (int)dataTable1.Rows[row][12]; // пачек ос
+                    worksheet.Cell(countRow + firstRow, 16).Value = Math.Round((float)dataTable1.Rows[row][13], 3); // Объем ос
+                    worksheet.Cell(countRow + firstRow, 18).Value = Math.Round((float)dataTable1.Rows[row][14]); // вес ос
+                    worksheet.Cell(countRow + firstRow, 8).Value = (float)dataTable1.Rows[row][18]; // плотность обрези
+                    worksheet.Cell(countRow + firstRow, 19).Value = Math.Round((float)dataTable1.Rows[row][15], 3); // Объем обрези
+                    worksheet.Cell(countRow + firstRow, 20).Value = Math.Round((float)dataTable1.Rows[row][16]); // вес обрези
+
+                    if (shiftNumConst == (int)dataTable1.Rows[row][1]) // суммирование
+                    {
+                        sumPack1 += (int)dataTable1.Rows[row][9];
+                        sumVolume1 = (float)(sumVolume1 + Math.Round((float)dataTable1.Rows[row][10], 3));
+                        sumWeight1 = (float)(sumWeight1 + Math.Round((float)dataTable1.Rows[row][11]));
+                        sumOS1 += (int)dataTable1.Rows[row][12];
+                        sumVolumeOS1 = (float)(sumVolumeOS1 + Math.Round((float)dataTable1.Rows[row][13], 3));
+                        sumWeightOS1 = (float)(sumWeightOS1 + Math.Round((float)dataTable1.Rows[row][14]));
+                        sumVolumeRej1 = (float)(sumVolumeRej1 + Math.Round((float)dataTable1.Rows[row][15], 3));
+                        sumWeightRej1 = (float)(sumWeightRej1 + Math.Round((float)dataTable1.Rows[row][16]));
+
+                        if ((bool)dataTable1.Rows[row][17])
+                        {
+                            sumRegarding1 = (float)(sumRegarding1 + Math.Round((float)dataTable1.Rows[row][11]));
+                        }
+                    }
+                }
+                // блок подсчета сумм
+                int[] columnsSheet2 = { 11, 12, 13, 15, 16, 18, 19, 20 }; // столбцы сумм сутки
+                double[] sums = { sumPack1, sumVolume1, sumWeight1, sumOS1, sumVolumeOS1, sumWeightOS1, sumVolumeRej1, sumWeightRej1 };
+
+                for (int i = 0; i < columnsSheet2.Length; i++)
+                {
+                    worksheet.Cell(35, columnsSheet2[i]).Value = sums[i];
+                }
+                // общий итог смена 1
+                double allWeight1 = sumWeight1 + sumWeightOS1 + sumWeightRej1;
+                double allVolume1 = sumVolume1 + sumVolumeOS1 + sumVolumeRej1;
+                worksheet.Cell(36, 4).Value = allWeight1;
+                worksheet.Cell(36, 8).Value = allVolume1;
+                if (allWeight1 != 0)
+                {
+                    worksheet.Cell(36, 12).Value = Math.Round(sumWeightOS1 / allWeight1 * 100, 2);
+                    worksheet.Cell(36, 16).Value = Math.Round(sumWeightRej1 / allWeight1 * 100, 2);
+                    worksheet.Cell(36, 20).Value = Math.Round(sumRegarding1 / allWeight1 * 100, 2);
+                }
+                else
+                {
+                    worksheet.Cell(36, 12).Value = 0;
+                    worksheet.Cell(36, 17).Value = 0;
+                    worksheet.Cell(36, 20).Value = 0;
+                }
+
+                float sumDurationStopProd = 0, sumDurationRunProd = 0, numFuge1 = 0, numFuge2 = 0;
+                string whyChangeFuge1 = "", whyChangeFuge2 = "";
+                string timeFuge1 = "", timeFuge2 = "";
+                for (int row = 0; row < dataTable2.Rows.Count; row++) // блок заполнения смен
+                {
+                    countRow1++;
+                    firstRow2 = 38;
+
+                    worksheet.Cell(countRow1 + firstRow2, 1).Value = countRow1; // порядковый номер продукта (в Кандыгаше №партии
+                    worksheet.Cell(countRow1 + firstRow2, 2).Value = (int)dataTable2.Rows[row][0]; // смена
+                    worksheet.Cell(countRow1 + firstRow2, 3).Value = (string)dataTable2.Rows[row][1]; // место
+                    worksheet.Cell(countRow1 + firstRow2, 4).Value = (string)dataTable2.Rows[row][2]; // узел
+                    worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable2.Rows[row][3]; // тип простоя
+                    worksheet.Cell(countRow1 + firstRow2, 9).Value = (string)dataTable2.Rows[row][4]; // остановка
+                    worksheet.Cell(countRow1 + firstRow2, 11).Value = (string)dataTable2.Rows[row][5]; // начало остановки
+                    worksheet.Cell(countRow1 + firstRow2, 12).Value = (string)dataTable2.Rows[row][6]; // конец остановки
+                    worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable2.Rows[row][7]; // длительность остановки
+                    worksheet.Cell(countRow1 + firstRow2, 14).Value = (bool)dataTable2.Rows[row][8] == true ? "нет" : "да"; // влияние остановки
+                    worksheet.Cell(countRow1 + firstRow2, 15).Value = (string)dataTable2.Rows[row][9]; // комментарий
+                    if ((bool)dataTable2.Rows[row][8] != true) sumDurationStopProd += (float)dataTable2.Rows[row][7];
+                    else sumDurationRunProd += (float)dataTable2.Rows[row][7];
+                    if ((int)dataTable2.Rows[row][11] > 0 && numFuge1 == 0)
+                    {
+                        whyChangeFuge1 = (string)dataTable2.Rows[row][9];
+                        numFuge1 = (int)dataTable2.Rows[row][11];
+                        timeFuge1 = (string)dataTable2.Rows[row][10];
+                    }
+                    else if ((int)dataTable2.Rows[row][11] > 0 && numFuge1 != 0)
+                    {
+                        whyChangeFuge2 = (string)dataTable2.Rows[row][9];
+                        numFuge2 = (int)dataTable2.Rows[row][11];
+                        timeFuge2 = (string)dataTable2.Rows[row][10];
+                    }
+                }
+                float sumDuration = sumDurationStopProd + sumDurationRunProd;
+
+                worksheet.Cell(51, 13).Value = worksheet.Cell(8, 7).Value = sumDurationStopProd;
+                worksheet.Cell(51, 14).Value = sumDurationRunProd;
+                worksheet.Cell(52, 13).Value = sumDuration;
+                worksheet.Cell(8, 1).Value = 720 - sumDurationStopProd;
+                worksheet.Cell(8, 14).Value = Math.Round(allWeight1 / (720 - sumDurationStopProd) * 60);
+                if (numFuge1 > 0)
+                {
+                    worksheet.Cell(11, 4).Value = timeFuge1.ToString().Split(' ')[1];
+                    worksheet.Cell(11, 7).Value = numFuge1;
+                    worksheet.Cell(11, 8).Value = whyChangeFuge1;
+                }
+                if (numFuge2 > 0)
+                {
+                    worksheet.Cell(12, 4).Value = timeFuge2.ToString().Split(' ')[1];
+                    worksheet.Cell(12, 7).Value = numFuge2;
+                    worksheet.Cell(11, 14).Value = whyChangeFuge2;
+                }
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    workbook.SaveAs(ms);
+                    byte[] excelBytes = ms.ToArray();
+
+                    // Отправка по электронной почте с аттачментом
+                    Sending.SendEmail("vadpnb@gmail.com", $"Сводный отчёт за {shiftDate}, смена №{shiftNumConst}, {(shiftsDays[0] == 1 ? "день" : "ночь")}",
+                        "Файл добавлен", excelBytes);
+                }
+
+                ProjectLogger.LogDebug("Конец метода ExcelPivotToAttach");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ProjectLogger.LogException("Ошибка в методе ExcelPivotToAttach", ex);
+            }
+        }
+
+        public string GetProductNameDay(DataTable dataTable, int row) // Выведение имени продукта
+        {
+
+            string productName;
+            if ((bool)dataTable.Rows[row][3]) // блок названия продукта
+            {
+                if (dataTable.Rows[row][2].ToString().Contains("М"))
+                {
+                    string lastThreeChars = dataTable.Rows[row][2].ToString().Split('М')[1];
+                    productName = $"{dataTable.Rows[row][2].ToString().Split('М')[0]} {dataTable.Rows[row][5]}x{dataTable.Rows[row][6]}x{dataTable.Rows[row][4]} ({lastThreeChars})";
+                }
+                else
+                {
+                    productName = $"{dataTable.Rows[row][2]} {dataTable.Rows[row][5]}x{dataTable.Rows[row][6]}x{dataTable.Rows[row][4]}";
+                }
+            }
+            else
+            {
+                productName = $"{dataTable.Rows[row][2]} {dataTable.Rows[row][5]}x{dataTable.Rows[row][6]}x{dataTable.Rows[row][4]}";
+            }
+            return productName;
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -703,6 +906,7 @@ namespace ShiftReportApp1
 
             SaveInXML saver = new SaveInXML();  // Создаем экземпляр класса SaAsDi
             saver.SaveExcelFile(getMethod, prodList, shiftsDay, shifts, stopCategoryes, getDate1, getDate2); // Вызываем метод сохранения
+            //SendReport(getMethod, prodList, shiftsDay, shifts, stopCategoryes, getDate1, getDate2);
         }
     }
 }

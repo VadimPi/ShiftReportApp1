@@ -33,7 +33,7 @@ public class DataBaseConnection
             {
                 string[] settings = File.ReadAllText(filePath).Split(',');
 
-                if (settings.Length == 5)
+                if (settings.Length == 7)
                 {
                     Host = settings[0];
                     Port = settings[1];
