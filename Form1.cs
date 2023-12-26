@@ -9,6 +9,8 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.NetworkInformation;
+
 
 namespace ShiftReportApp1
 {
@@ -47,21 +49,36 @@ namespace ShiftReportApp1
         private bool CheckDatabaseConnection()
         {
             DataBaseConnection dbConnection = new DataBaseConnection();
-            NpgsqlConnection connection = dbConnection.GetConnection();
-            try
+            string host = dbConnection.Host;
+
+            if (!string.IsNullOrEmpty(host))
             {
-                connection.Open();
-                connection.Close();
-                connection.Dispose();
-                return true;
-                
+                try
+                {
+                    Ping ping = new Ping();
+                    PingReply reply = ping.Send(host);
+
+                    if (reply != null && reply.Status == IPStatus.Success)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Хост недоступен");
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Host не указан");
                 return false;
             }
-            
         }
 
         private void button1_Click(object sender, EventArgs e)

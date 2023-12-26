@@ -177,23 +177,23 @@ namespace ShiftReportApp1
                     if (9 <= now.Hour && now.Hour < 21)
                     {
                         varDate1 = now.Date.AddDays(-1).AddHours(20);
-                        varDate2 = varDate1.AddHours(12);
+                        varDate2 = now.Date.AddHours(8);
                     }
                     if (now.Hour >= 21 && now.Hour <= 23)
                     {
                         varDate1 = now.Date.AddHours(8);
-                        varDate2 = varDate1.AddHours(12);
+                        varDate2 = now.Date.AddDays(1).AddHours(8);
                     }
                     if (0 <= now.Hour && now.Hour < 9)
                     {
                         varDate1 = now.Date.AddDays(-1).AddHours(8);
-                        varDate2 = varDate1.AddHours(12);
+                        varDate2 = now.Date.AddHours(8);
                     }
                 }
                 else if (comboBox1.SelectedIndex == 1)
                 {
                     varDate1 = now.Date.AddDays(-1);
-                    varDate2 = varDate1.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    varDate2 = now.Date.AddDays(-1);
                 }
             }
             if (varDate1 > varDate2)
@@ -740,7 +740,7 @@ namespace ShiftReportApp1
                         return (10, list);
 
                     }
-                    else if (comboBox1.SelectedIndex == 1) // предыдущая смена
+                    else if (comboBox1.SelectedIndex == 1) // предыдущие сутки
                     {
                         list = new List<int> { 1, 2 };
                         return (15, list);

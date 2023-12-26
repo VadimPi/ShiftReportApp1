@@ -131,11 +131,13 @@ namespace ShiftReportApp1
                     var result = from pqr in dbContext.ProdQualityReport
                                  join pc in dbContext.ProductCategories on pqr.Product equals pc.ProductID
                                  join sr in dbContext.ShiftReport on pqr.Report equals sr.ShiftReportID
-                                 join pdr in dbContext.ProdDefectReport.DefaultIfEmpty() on pqr.PQReportID equals pdr.ProductReport
+                                 join pdr in dbContext.ProdDefectReport on pqr.PQReportID equals pdr.ProductReport into defectReports
+                                 from pdr in defectReports.DefaultIfEmpty() // Выполняем LEFT JOIN
                                  where sr.ShiftDate >= varDate1.Date && sr.ShiftDate <= varDate2.Date
                                  group new { pqr, pc, pdr } by new
                                  {
                                      sr.ShiftReportID,
+                                     pqr.PQReportID,
                                      sr.ShiftDate,
                                      sr.ShiftNum,
                                      pqr.VolumePack,
@@ -146,7 +148,7 @@ namespace ShiftReportApp1
                                      pqr.ProdLength,
                                      pqr.ProdWidth
                                  } into grp
-                                 orderby grp.Key.ShiftReportID
+                                 orderby grp.Key.PQReportID
                                  select new
                                  {
                                      ShiftDate = grp.Key.ShiftDate,
@@ -217,7 +219,7 @@ namespace ShiftReportApp1
                         row["Плотность ОС"] = report.AvgLowQualDensity;
                         // Заполняйте остальные поля аналогично
                         dataTable.Rows.Add(row);
-                        
+
                     }
                     dbContext.Dispose();
                     return dataTable;
@@ -231,7 +233,8 @@ namespace ShiftReportApp1
                     var result = from pqr in dbContext.ProdQualityReport
                                  join pc in dbContext.ProductCategories on pqr.Product equals pc.ProductID
                                  join sr in dbContext.ShiftReport on pqr.Report equals sr.ShiftReportID
-                                 join dr in dbContext.ProdDefectReport.DefaultIfEmpty() on pqr.PQReportID equals dr.ProductReport
+                                 join dr in dbContext.ProdDefectReport on pqr.PQReportID equals dr.ProductReport into defectReports
+                                 from dr in defectReports.DefaultIfEmpty() // Выполняем LEFT JOIN
                                  where sr.ShiftDate >= varDate1 && sr.ShiftDate <= varDate2 && shiftNumbs.Contains(sr.ShiftNum)
                                  group new { pqr, pc, dr } by new
                                  {
@@ -326,7 +329,8 @@ namespace ShiftReportApp1
                     var result = (
                         from pqr in dbContext.ProdQualityReport
                         join sr in dbContext.ShiftReport on pqr.Report equals sr.ShiftReportID
-                        join dr in dbContext.ProdDefectReport on pqr.PQReportID equals dr.ProductReport
+                        join dr in dbContext.ProdDefectReport on pqr.PQReportID equals dr.ProductReport into defectReports
+                        from dr in defectReports.DefaultIfEmpty() // Выполняем LEFT JOIN
                         join dt in dbContext.DefectTypes on dr.DefectType equals dt.DefectTypeID
                         where sr.ShiftDate >= varDate1 && sr.ShiftDate <= varDate2
                         group new { dr, dt, sr, pqr }
@@ -378,7 +382,8 @@ namespace ShiftReportApp1
                     var result = (
                         from pqr in dbContext.ProdQualityReport
                         join sr in dbContext.ShiftReport on pqr.Report equals sr.ShiftReportID
-                        join dr in dbContext.ProdDefectReport on pqr.PQReportID equals dr.ProductReport
+                        join dr in dbContext.ProdDefectReport on pqr.PQReportID equals dr.ProductReport into defectReports
+                        from dr in defectReports.DefaultIfEmpty() // Выполняем LEFT JOIN
                         join dt in dbContext.DefectTypes on dr.DefectType equals dt.DefectTypeID
                         where sr.ShiftDate >= varDate1 && sr.ShiftDate <= varDate2 && shiftNumbs.Contains(sr.ShiftNum)
                         group new { dr, dt, sr, pqr }
@@ -467,7 +472,6 @@ namespace ShiftReportApp1
                         // Заполняйте остальные поля аналогично
                         dataTable.Rows.Add(row);
                     }
-                    dataTable.Rows.Add();
                     dbContext.Dispose();
                     return dataTable;
                 }
@@ -507,7 +511,6 @@ namespace ShiftReportApp1
                         // Заполняйте остальные поля аналогично
                         dataTable.Rows.Add(row);
                     }
-                    dataTable.Rows.Add();
                     dbContext.Dispose();
                     return dataTable;
                 }
@@ -537,7 +540,7 @@ namespace ShiftReportApp1
 
 
                     DataTable dataTable = new DataTable();
-                    dataTable.Columns.Add("Смена", typeof(int));
+                    dataTable.Columns.Add("Номер смены", typeof(int));
                     dataTable.Columns.Add("Категория остановки", typeof(string));
                     dataTable.Columns.Add("Название остановки", typeof(string));
                     dataTable.Columns.Add("Место остановки", typeof(string));
@@ -548,7 +551,7 @@ namespace ShiftReportApp1
                     foreach (var report in result)
                     {
                         DataRow row = dataTable.NewRow();
-                        row["Смена"] = report.ShiftNumer;
+                        row["Номер смены"] = report.ShiftNumer;
                         row["Категория остановки"] = report.StopCategorys;
                         row["Название остановки"] = report.StopNames;
                         row["Место остановки"] = report.PlaceNames;
@@ -556,7 +559,6 @@ namespace ShiftReportApp1
                         // Заполняйте остальные поля аналогично
                         dataTable.Rows.Add(row);
                     }
-                    dataTable.Rows.Add();
                     dbContext.Dispose();
                     return dataTable;
                 }
@@ -608,7 +610,6 @@ namespace ShiftReportApp1
                         // Заполняйте остальные поля аналогично
                         dataTable.Rows.Add(row);
                     }
-                    dataTable.Rows.Add();
                     dbContext.Dispose();
                     return dataTable;
                 }
@@ -637,9 +638,9 @@ namespace ShiftReportApp1
 
 
                     DataTable dataTable = new DataTable();
-                    dataTable.Columns.Add("Смена", typeof(int));
+                    dataTable.Columns.Add("Номер смены", typeof(int));
                     dataTable.Columns.Add("Категория остановки", typeof(string));
-                    dataTable.Columns.Add("Место установки", typeof(string));
+                    dataTable.Columns.Add("Место остановки", typeof(string));
                     dataTable.Columns.Add("Длительность", typeof(float));
 
 
@@ -647,14 +648,13 @@ namespace ShiftReportApp1
                     foreach (var report in result)
                     {
                         DataRow row = dataTable.NewRow();
-                        row["Смена"] = report.ShiftNumer;
+                        row["Номер смены"] = report.ShiftNumer;
                         row["Категория остановки"] = report.StopCategorys;
                         row["Место остановки"] = report.PlaceNames;
                         row["Длительность"] = report.DurationStops;
                         // Заполняйте остальные поля аналогично
                         dataTable.Rows.Add(row);
                     }
-                    dataTable.Rows.Add();
                     dbContext.Dispose();
                     return dataTable;
                 }
@@ -738,7 +738,6 @@ namespace ShiftReportApp1
                         // Заполняйте остальные поля аналогично
                         dataTable.Rows.Add(row);
                     }
-                    dataTable.Rows.Add();
                     dbContext.Dispose();
                     return dataTable;
                 }
@@ -782,11 +781,11 @@ namespace ShiftReportApp1
                         NumReport = grp.Key.Report,
                         ProdReportID = grp.Key.PQReportID,
                         ProductName = grp.Key.ProductName,
-                        Unspecified = grp.Key.Unspecified,
-                        Regarding = grp.Key.Regarding,
                         Length = grp.Key.ProdLength,
                         Width = grp.Key.ProdWidth,
                         ProdDepth = grp.Key.ProdDepth,
+                        Unspecified = grp.Key.Unspecified,
+                        Regarding = grp.Key.Regarding,
                         AvgDensity = grp.Key.AvgDensity,
                         VolumePack = grp.Key.VolumePack,
                         PackCount = grp.Key.PackCount,
@@ -800,13 +799,13 @@ namespace ShiftReportApp1
                     dataTable.Columns.Add("Смена", typeof(int));
                     dataTable.Columns.Add("День/Ночь", typeof(int));
                     dataTable.Columns.Add("# записи смены", typeof(int));
-                    dataTable.Columns.Add("# записи продукта", typeof(int));
+                    dataTable.Columns.Add("# записи", typeof(int));
                     dataTable.Columns.Add("Марка", typeof(string));
-                    dataTable.Columns.Add("Неуказанная плт-ть", typeof(bool));
-                    dataTable.Columns.Add("Пересорт", typeof(bool));
                     dataTable.Columns.Add("Длинна", typeof(int));
                     dataTable.Columns.Add("Ширина", typeof(int));
                     dataTable.Columns.Add("Толщина", typeof(int));
+                    dataTable.Columns.Add("Неуказанная плт-ть", typeof(bool));
+                    dataTable.Columns.Add("Пересорт", typeof(bool));
                     dataTable.Columns.Add("Ср. плотность", typeof(float));
                     dataTable.Columns.Add("Объем пачки", typeof(float));
                     dataTable.Columns.Add("Кол-во пачек", typeof(int));
@@ -820,13 +819,13 @@ namespace ShiftReportApp1
                         row["Смена"] = report.ShiftNum;
                         row["День/Ночь"] = report.ShiftDay;
                         row["# записи смены"] = report.NumReport;
-                        row["# записи продукта"] = report.ProdReportID;
+                        row["# записи"] = report.ProdReportID;
                         row["Марка"] = report.ProductName;
-                        row["Неуказанная плт-ть"] = report.Unspecified;
-                        row["Пересорт"] = report.Regarding;
                         row["Длинна"] = report.Length;
                         row["Ширина"] = report.Width;
                         row["Толщина"] = report.ProdDepth;
+                        row["Неуказанная плт-ть"] = report.Unspecified;
+                        row["Пересорт"] = report.Regarding;
                         row["Ср. плотность"] = report.AvgDensity;
                         row["Объем пачки"] = report.VolumePack;
                         row["Кол-во пачек"] = report.PackCount;
@@ -893,7 +892,7 @@ namespace ShiftReportApp1
                     dataTable.Columns.Add("Смена", typeof(int));
                     dataTable.Columns.Add("День/Ночь", typeof(int));
                     dataTable.Columns.Add("# записи продукта", typeof(int));
-                    dataTable.Columns.Add("# записи дефекта", typeof(int));
+                    dataTable.Columns.Add("# записи", typeof(int));
                     dataTable.Columns.Add("Марка", typeof(string));
                     dataTable.Columns.Add("Дефект", typeof(string));
                     dataTable.Columns.Add("Тип дефекта", typeof(string));
@@ -910,7 +909,7 @@ namespace ShiftReportApp1
                         row["Смена"] = report.ShiftNum;
                         row["День/Ночь"] = report.ShiftDay;
                         row["# записи продукта"] = report.NumReport;
-                        row["# записи дефекта"] = report.DefectReportID;
+                        row["# записи"] = report.DefectReportID;
                         row["Марка"] = report.ProductName;
                         row["Дефект"] = report.DefectName;
                         row["Тип дефекта"] = report.DefectType;
@@ -982,7 +981,7 @@ namespace ShiftReportApp1
                     dataTable.Columns.Add("Смена", typeof(int));
                     dataTable.Columns.Add("День/Ночь", typeof(int));
                     dataTable.Columns.Add("# записи отчета", typeof(int));
-                    dataTable.Columns.Add("# записи остановки", typeof(int));
+                    dataTable.Columns.Add("# записи", typeof(int));
                     dataTable.Columns.Add("Категория остановки", typeof(string));
                     dataTable.Columns.Add("Название остановки", typeof(string));
                     dataTable.Columns.Add("Место остановки", typeof(string));
@@ -1001,7 +1000,7 @@ namespace ShiftReportApp1
                         row["Смена"] = report.ShiftNum;
                         row["День/Ночь"] = report.ShiftDay;
                         row["# записи отчета"] = report.NumReport;
-                        row["# записи остановки"] = report.StopReportID;
+                        row["# записи"] = report.StopReportID;
                         row["Категория остановки"] = report.StopCategorys;
                         row["Название остановки"] = report.StopNames;
                         row["Место остановки"] = report.PlaceNames;

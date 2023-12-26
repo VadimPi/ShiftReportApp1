@@ -12,7 +12,7 @@ using ShiftReportApp1;
 
 public class DataBaseConnection
 {
-    private string Host { get; set; }
+    public string Host { get; set; }
     private string Port { get; set; }
     private string Database { get; set; }
     private string Username { get; set; }

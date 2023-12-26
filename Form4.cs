@@ -175,6 +175,7 @@ namespace ShiftReportApp1
                 ProjectLogger.LogDebug("Начало CreateShiftReport");
                 using (var dbContext = new ShiftReportDbContext())
                 {
+                    var shiftstopreport = new StopsReport { };
                     DateTime shiftDate = (DateTime)dateTimePicker1.Value.Date;
                     int shiftDay = domainUpDown1.Text == "День" ? 1 : 2;
                     int shiftNum = (int)numericUpDown1.Value;
@@ -222,7 +223,6 @@ namespace ShiftReportApp1
                                 ShiftDay = shiftDay,
                                 ShiftNum = shiftNum
                             };
-
                             dbContext.ShiftReport.Add(shiftReport);
                             dbContext.SaveChanges();
                         }
@@ -242,7 +242,7 @@ namespace ShiftReportApp1
                         int differenceInMinutes = endTime > startTime ? (int)timeDifference.TotalMinutes : 1440 + (int)timeDifference.TotalMinutes;
                         if (!string.IsNullOrWhiteSpace(comboBox10.Text))
                         {
-                            var shiftstopreport = new StopsReport
+                            shiftstopreport = new StopsReport
                             {
                                 ShiftReport = string.IsNullOrWhiteSpace(comboBox1.Text) ?
                                     shiftID : int.Parse(comboBox1.Text.Split(' ')[0]),
@@ -256,11 +256,10 @@ namespace ShiftReportApp1
                                 BreakdownWithoutStop = checkBox1.Checked,
                                 Centrifuge = fuge
                             };
-                            dbContext.StopsReport.Add(shiftstopreport);
                         }
                         else
                         {
-                            var shiftstopreport = new StopsReport
+                            shiftstopreport = new StopsReport
                             {
                                 ShiftReport = string.IsNullOrWhiteSpace(comboBox1.Text) ?
                                     shiftID : int.Parse(comboBox1.Text.Split(' ')[0]),
@@ -273,12 +272,38 @@ namespace ShiftReportApp1
                                 DateRecordSR = DateTime.Now,
                                 BreakdownWithoutStop = checkBox1.Checked
                             };
-                            dbContext.StopsReport.Add(shiftstopreport);
                         }
-                        
-                        dbContext.SaveChanges();
-                        MessageBox.Show("Данные успешно сохранены", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        dbContext.Dispose();
+
+                        DialogResult result = CustomMessageBox.Show(
+                            $"Дата:   {(string.IsNullOrWhiteSpace(comboBox1.Text) ? shiftDate.Date.ToString() : comboBox1.Text.Split(' ')[1])}\n" +
+                            $"Номер смены:   {(string.IsNullOrWhiteSpace(comboBox1.Text) ? shiftNum.ToString() : comboBox1.Text.Split(' ')[4])}\n" +
+                            $"{(string.IsNullOrWhiteSpace(comboBox1.Text) ? (shiftDay == 1 ? "День" : "Ночь") : comboBox1.Text.Split(' ')[2])}\n" +
+                            $"Остановка:   {defect.StopName}\n" +
+                            $"Тип остановки:   {defect.StopCategory}\n" +
+                            $"Начало остановки:   {startBreakdown}\n" +
+                            $"Конец остановки:   {endBreakdown}\n" +
+                            $"Длительность:   {differenceInMinutes}\n" +
+                            $"Комментарий:   {shiftstopreport.CommentStop}\n" +
+                            $"Место отсановки:   {(comboBox3.Enabled ? place.PlacesName : "")}\n" +
+                            $"Простой линии:   {(shiftstopreport.BreakdownWithoutStop ? "Нет" : "Да")}\n" +
+                            $"Замена центрифуги:   {(shiftstopreport.Centrifuge > 0 ? "Да" : "Нет")}\n" +
+                            $"Установлена центрифуга:   {(shiftstopreport.Centrifuge > 0 ?shiftstopreport.Centrifuge : 0)}"
+                            , "Подтверждение введенных данных",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            new Font("Arial", 14));
+
+                        if (result == DialogResult.OK)
+                        {
+                            dbContext.StopsReport.Add(shiftstopreport);
+                            dbContext.SaveChanges();
+                            MessageBox.Show("Данные успешно сохранены", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            SmallGrid();
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
                 // Очистка элементов управления
@@ -459,7 +484,7 @@ namespace ShiftReportApp1
             if (now.Hour >= 0 && now.Hour <= 9) { getDate1 = now.AddDays(-1).Date; getDate2 = now.AddDays(-1).Date; shiftsDay.Add(2); }
             else if (now.Hour < 21 && now.Hour > 9) { getDate1 = now.Date; getDate2 = now.Date; shiftsDay.Add(1); }
             if (now.Hour >= 21 && now.Hour < 24) { getDate1 = now.Date; getDate2 = now.Date; shiftsDay.Add(2); }
-            int getMethod = 14;
+            int getMethod = 15;
             SaveInXML saver = new SaveInXML();  // Создаем экземпляр класса SaAsDi
             saver.SaveExcelFile(getMethod, prodList, shiftsDay, shifts, stopCategoryes, getDate1, getDate2); // Вызываем метод сохранения
         }

@@ -22,11 +22,12 @@ namespace ShiftReportApp1
         public void SaveExcelFile(int getMethod, List<string> prodList, List<int> shiftsDays, List<int> shifts, List<string> stopCategoryes,
              DateTime varDate1 = default, DateTime varDate2 = default)
         {
-            try
-            {
+            //try
+            //{
                 ProjectLogger.LogDebug("Начало SaveExcelFile (SaveIn)");
                 LINQRequest newReport = new LINQRequest();
 
+                // Получаем таблицу из ДБ
                 DataTable dataTable = new DataTable();
                 List <DataTable> dataTablePivot = new List<DataTable> { new DataTable(), new DataTable() };
                 if (getMethod != 21) { dataTable = newReport.ExtractProduct(getMethod, varDate1, varDate2, shiftsDays, shifts, stopCategoryes); }
@@ -92,14 +93,18 @@ namespace ShiftReportApp1
                 {
                     WriteToExcelPivote(workbook, dataTablePivot, getMethod, shiftsDays, shifts, stopCategoryes, varDate1, varDate2);
                 }
+                else if (getMethod >= 10 && getMethod <= 20)
+                {
+                    WriteToExcelShiftStops(workbook, dataTable, getMethod, shiftsDays, shifts, stopCategoryes, varDate1, varDate2);
+                }
                 MessageBox.Show($"Файл сохранен", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ProjectLogger.LogDebug("Конец SaveExcelFile (SaveIn)");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ProjectLogger.LogException("Ошибка в SaveExcelFile (SaveIn)", ex);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    ProjectLogger.LogException("Ошибка в SaveExcelFile (SaveIn)", ex);
+            //}
         }
         //  -----------------------------------------------------------------------------------------
         // Заполнение excel за предыдущие сутки
@@ -263,7 +268,7 @@ namespace ShiftReportApp1
                 {
                     worksheet.Cell(22, 12).Value = Math.Round(sumWeightOS1 / allWeight1 * 100, 2);
                     worksheet.Cell(22, 17).Value = Math.Round(sumWeightRej1 / allWeight1 * 100, 2);
-                    worksheet.Cell(22, 20).Value = Math.Round(sumRegarding1 / allWeight1 * 100, 2);
+                    worksheet.Cell(22, 20).Value = Math.Round(sumRegarding1 / 2 / allWeight1 * 100, 2);
                 }
                 else
                 {
@@ -278,7 +283,7 @@ namespace ShiftReportApp1
                     worksheet.Cell(52, 4).Value = allWeight2;
                     worksheet.Cell(52, 12).Value = Math.Round(sumWeightOS2 / allWeight2 * 100, 2);
                     worksheet.Cell(52, 17).Value = Math.Round(sumWeightRej2 / allWeight2 * 100, 2);
-                    worksheet.Cell(52, 20).Value = Math.Round(sumRegarding2 / allWeight2 * 100, 2);
+                    worksheet.Cell(52, 20).Value = Math.Round(sumRegarding2 / 2 / allWeight2 * 100, 2);
                 }
                 else
                 {
@@ -295,7 +300,7 @@ namespace ShiftReportApp1
                 {
                     worksheet.Cell(100, 12).Value = Math.Round((sumWeightOS1 + sumWeightOS2) / allWeight3 * 100, 2);
                     worksheet.Cell(100, 17).Value = Math.Round((sumWeightRej1 + sumWeightRej2) / allWeight3 * 100, 2);
-                    worksheet.Cell(100, 20).Value = Math.Round((sumRegarding1 + sumRegarding2) / allWeight3 * 100, 2);
+                    worksheet.Cell(100, 20).Value = Math.Round((sumRegarding1 + sumRegarding2) / 2 / allWeight3 * 100, 2);
                 }
                 else
                 {
@@ -550,6 +555,7 @@ namespace ShiftReportApp1
 
                 int[] columnsSheet = { 11, 14, 18 }; // столбцы сумм сутки
                 double[] sums = { sumPack, sumVolume, sumWeight };
+                //---------------------------------------------------------------------------------------------------------------------------------------
                 if (getMethod == 4)
                 {
                     for (int row = 0; row < dataTable.Rows.Count; row++) // блок заполнения смен
@@ -582,6 +588,7 @@ namespace ShiftReportApp1
                         worksheet.Cell(row1 + 1 + firstRow, 9).Value = sumWeightOS != 0 ? Math.Round((float)dataTable.Rows[row1][4]) / sumWeightOS : 0;
                     }
                 }
+                //---------------------------------------------------------------------------------------------------------------------------------------
                 if (getMethod == 5)
                 {
 
@@ -656,55 +663,239 @@ namespace ShiftReportApp1
         public void WriteToExcelShiftStops(XLWorkbook workbook, DataTable dataTable, int getMethod, List<int> shiftsDays, List<int> shifts, List<string> stopCategoryes,
              DateTime varDate1 = default, DateTime varDate2 = default)
         {
-            try
-            {
+            //try
+            //{
                 ProjectLogger.LogDebug("Начало метода WriteToExcel24hours");
+                //---------------------------------------------------------------------------------------------------------------------------------------
+                if (getMethod == 15)
+                {
+                    var worksheet = workbook.Worksheet(1);
+                    int firstRow2 = 0, countRow1 = 0;
+                    int shiftNumConst = (int)dataTable.Rows[0][0];
+
+                    DateTime shiftDate = varDate1.Date;
+                    shiftDate.ToShortDateString();
+                    worksheet.Cell(5, 3).Value = shiftDate;
+                    worksheet.Cell(5, 9).Value = shiftNumConst;
+                    worksheet.Cell(5, 5).Value = shiftsDays[0] == 1 ? "8:00-20:00" : "20:00-8:00";
+
+                    float sumDurationStopProd = 0, sumDurationRunProd = 0;
+                    for (int row = 0; row < dataTable.Rows.Count; row++) // блок заполнения смен
+                    {
+                        // Пропускаем строки, в которых значение смены равно DBNull
+                        if (dataTable.Rows[row][0] == DBNull.Value)
+                        {
+                            continue;
+                        }
+                    countRow1++;
+                        firstRow2 = 7;
+
+                        worksheet.Cell(countRow1 + firstRow2, 1).Value = countRow1; // порядковый номер продукта (в Кандыгаше №партии
+                        worksheet.Cell(countRow1 + firstRow2, 2).Value = (int)dataTable.Rows[row][0]; // смена
+                        worksheet.Cell(countRow1 + firstRow2, 3).Value = (string)dataTable.Rows[row][1]; // место
+                        worksheet.Cell(countRow1 + firstRow2, 4).Value = (string)dataTable.Rows[row][2]; // узел
+                        worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable.Rows[row][3]; // тип простоя
+                        worksheet.Cell(countRow1 + firstRow2, 9).Value = (string)dataTable.Rows[row][4]; // остановка
+                        worksheet.Cell(countRow1 + firstRow2, 11).Value = (string)dataTable.Rows[row][5]; // начало остановки
+                        worksheet.Cell(countRow1 + firstRow2, 12).Value = (string)dataTable.Rows[row][6]; // конец остановки
+                        worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable.Rows[row][7]; // длительность остановки
+                        worksheet.Cell(countRow1 + firstRow2, 14).Value = (bool)dataTable.Rows[row][8] == true ? "нет" : "да"; // влияние остановки
+                        worksheet.Cell(countRow1 + firstRow2, 15).Value = (string)dataTable.Rows[row][9]; // комментарий
+                        if ((bool)dataTable.Rows[row][8] != true) sumDurationStopProd += (float)dataTable.Rows[row][7];
+                        else sumDurationRunProd += (float)dataTable.Rows[row][7];
+                    }
+                    float sumDuration = sumDurationStopProd + sumDurationRunProd;
+
+                    worksheet.Cell(51, 13).Value = worksheet.Cell(8, 7).Value = sumDurationStopProd;
+                    worksheet.Cell(51, 14).Value = sumDurationRunProd;
+                    worksheet.Cell(52, 13).Value = sumDuration;
+                    worksheet.Cell(8, 1).Value = 720 - sumDurationStopProd;
+
+                    workbook.Save();
+                }
+                //---------------------------------------------------------------------------------------------------------------------------------------
+                else if (getMethod == 10)
+                {
+                    var worksheet = workbook.Worksheet(1);
+                    int firstRow2 = 0, countRow1 = 0;
+
+                    DateTime shiftDate = varDate1.Date;
+                    DateTime shiftDate2 = varDate2.Date;
+                    shiftDate.ToShortDateString();
+                    worksheet.Cell(5, 3).Value = shiftDate;
+                    worksheet.Cell(5, 9).Value = shiftDate2;
+
+                    float sumDurationStopProd = 0;
+                    for (int row = 0; row < dataTable.Rows.Count; row++) // блок заполнения смен
+                    {
+                        // Пропускаем строки, в которых значение смены равно DBNull
+                        if (dataTable.Rows[row][0] == DBNull.Value)
+                        {
+                            continue;
+                        }
+                        countRow1++;
+                        firstRow2 = 7;
+
+                        worksheet.Cell(countRow1 + firstRow2, 1).Value = countRow1; // порядковый номер продукта (в Кандыгаше №партии
+                        worksheet.Cell(countRow1 + firstRow2, 3).Value = (string)dataTable.Rows[row][2]; // место
+                        worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable.Rows[row][0]; // тип простоя
+                        worksheet.Cell(countRow1 + firstRow2, 9).Value = (string)dataTable.Rows[row][1]; // остановка
+                        worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable.Rows[row][3]; 
+                        sumDurationStopProd += (float)dataTable.Rows[row][3];
+                    }
+
+                    worksheet.Cell(51, 13).Value = worksheet.Cell(8, 7).Value = sumDurationStopProd;
+                    worksheet.Cell(8, 1).Value = 720 - sumDurationStopProd;
+
+                    workbook.Save();
+                }
+            //---------------------------------------------------------------------------------------------------------------------------------------
+            else if (getMethod == 11)
+            {
                 var worksheet = workbook.Worksheet(1);
                 int firstRow2 = 0, countRow1 = 0;
-                int shiftNumConst = (int)dataTable.Rows[0][1];
 
                 DateTime shiftDate = varDate1.Date;
+                DateTime shiftDate2 = varDate2.Date;
                 shiftDate.ToShortDateString();
                 worksheet.Cell(5, 3).Value = shiftDate;
-                worksheet.Cell(5, 9).Value = shiftNumConst;
-                worksheet.Cell(5, 5).Value = shiftsDays[0] == 1 ? "8:00-20:00" : "20:00-8:00";
-
-                float sumDurationStopProd = 0, sumDurationRunProd = 0;
+                worksheet.Cell(5, 9).Value = shiftDate2;
                 for (int row = 0; row < dataTable.Rows.Count; row++) // блок заполнения смен
                 {
+                    // Пропускаем строки, в которых значение смены равно DBNull
+                    if (dataTable.Rows[row][0] == DBNull.Value)
+                    {
+                        continue;
+                    }
+                    countRow1++;
+                    firstRow2 = 7;
+
+                    worksheet.Cell(countRow1 + firstRow2, 1).Value = countRow1; // порядковый номер продукта (в Кандыгаше №партии
+                    worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable.Rows[row][0]; // тип простоя
+                    worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable.Rows[row][1]; // длительность остановки
+                }
+
+                workbook.Save();
+            }
+            //---------------------------------------------------------------------------------------------------------------------------------------
+            else if (getMethod == 12)
+            {
+                var worksheet = workbook.Worksheet(1);
+                int firstRow2 = 0, countRow1 = 0;
+
+                DateTime shiftDate = varDate1.Date;
+                DateTime shiftDate2 = varDate2.Date;
+                shiftDate.ToShortDateString();
+                worksheet.Cell(5, 3).Value = shiftDate;
+                worksheet.Cell(5, 9).Value = shiftDate2;
+
+                float sumDurationStopProd = 0;
+                for (int row = 0; row < dataTable.Rows.Count; row++) // блок заполнения смен
+                {
+                    // Пропускаем строки, в которых значение смены равно DBNull
+                    if (dataTable.Rows[row][0] == DBNull.Value)
+                    {
+                        continue;
+                    }
                     countRow1++;
                     firstRow2 = 7;
 
                     worksheet.Cell(countRow1 + firstRow2, 1).Value = countRow1; // порядковый номер продукта (в Кандыгаше №партии
                     worksheet.Cell(countRow1 + firstRow2, 2).Value = (int)dataTable.Rows[row][0]; // смена
-                    worksheet.Cell(countRow1 + firstRow2, 3).Value = (string)dataTable.Rows[row][1]; // место
-                    worksheet.Cell(countRow1 + firstRow2, 4).Value = (string)dataTable.Rows[row][2]; // узел
-                    worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable.Rows[row][3]; // тип простоя
-                    worksheet.Cell(countRow1 + firstRow2, 9).Value = (string)dataTable.Rows[row][4]; // остановка
-                    worksheet.Cell(countRow1 + firstRow2, 11).Value = (string)dataTable.Rows[row][5]; // начало остановки
-                    worksheet.Cell(countRow1 + firstRow2, 12).Value = (string)dataTable.Rows[row][6]; // конец остановки
-                    worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable.Rows[row][7]; // длительность остановки
-                    worksheet.Cell(countRow1 + firstRow2, 14).Value = (bool)dataTable.Rows[row][8] == true ? "нет" : "да"; // влияние остановки
-                    worksheet.Cell(countRow1 + firstRow2, 15).Value = (string)dataTable.Rows[row][9]; // комментарий
-                    if ((bool)dataTable.Rows[row][8] != true) sumDurationStopProd += (float)dataTable.Rows[row][7];
-                    else sumDurationRunProd += (float)dataTable.Rows[row][7];
+                    worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable.Rows[row][1]; // тип простоя
+                    worksheet.Cell(countRow1 + firstRow2, 9).Value = (string)dataTable.Rows[row][2]; // остановка
+                    worksheet.Cell(countRow1 + firstRow2, 3).Value = (string)dataTable.Rows[row][3]; // место
+                    worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable.Rows[row][4]; // длительность остановки
+                    sumDurationStopProd += (float)dataTable.Rows[row][4];
                 }
-                float sumDuration = sumDurationStopProd + sumDurationRunProd;
 
                 worksheet.Cell(51, 13).Value = worksheet.Cell(8, 7).Value = sumDurationStopProd;
-                worksheet.Cell(51, 14).Value = sumDurationRunProd;
-                worksheet.Cell(52, 13).Value = sumDuration;
                 worksheet.Cell(8, 1).Value = 720 - sumDurationStopProd;
 
                 workbook.Save();
-
-                ProjectLogger.LogDebug("Конец метода WriteToExcelPivot");
             }
-            catch (Exception ex)
+            //---------------------------------------------------------------------------------------------------------------------------------------
+            else if (getMethod == 13)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ProjectLogger.LogException("Ошибка в методе WriteToExcelPivot", ex);
+                var worksheet = workbook.Worksheet(1);
+                int firstRow2 = 0, countRow1 = 0;
+
+                DateTime shiftDate = varDate1.Date;
+                DateTime shiftDate2 = varDate2.Date;
+                shiftDate.ToShortDateString();
+                worksheet.Cell(5, 3).Value = shiftDate;
+                worksheet.Cell(5, 9).Value = shiftDate2;
+
+                float sumDurationStopProd = 0;
+                for (int row = 0; row < dataTable.Rows.Count; row++) // блок заполнения смен
+                {
+                    // Пропускаем строки, в которых значение смены равно DBNull
+                    if (dataTable.Rows[row][0] == DBNull.Value)
+                    {
+                        continue;
+                    }
+                    countRow1++;
+                    firstRow2 = 7;
+
+                    worksheet.Cell(countRow1 + firstRow2, 1).Value = countRow1; // порядковый номер продукта (в Кандыгаше №партии
+                    worksheet.Cell(countRow1 + firstRow2, 2).Value = (int)dataTable.Rows[row][0]; // дата
+                    worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable.Rows[row][1]; // тип простоя
+                    worksheet.Cell(countRow1 + firstRow2, 9).Value = (string)dataTable.Rows[row][2]; // остановка
+                    worksheet.Cell(countRow1 + firstRow2, 3).Value = (string)dataTable.Rows[row][3]; // место
+                    worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable.Rows[row][4]; // длительность остановки
+                    worksheet.Cell(countRow1 + firstRow2, 15).Value = (string)dataTable.Rows[row][5]; // комментарий
+                    sumDurationStopProd += (float)dataTable.Rows[row][4];
+                }
+
+                worksheet.Cell(51, 13).Value = worksheet.Cell(8, 7).Value = sumDurationStopProd;
+                worksheet.Cell(8, 1).Value = 720 - sumDurationStopProd;
+
+                workbook.Save();
             }
+            //---------------------------------------------------------------------------------------------------------------------------------------
+            else if (getMethod == 14)
+            {
+                var worksheet = workbook.Worksheet(1);
+                int firstRow2 = 0, countRow1 = 0;
+
+                DateTime shiftDate = varDate1.Date;
+                DateTime shiftDate2 = varDate2.Date;
+                shiftDate.ToShortDateString();
+                worksheet.Cell(5, 3).Value = shiftDate;
+                worksheet.Cell(5, 9).Value = shiftDate2;
+
+                float sumDurationStopProd = 0;
+                for (int row = 0; row < dataTable.Rows.Count; row++) // блок заполнения смен
+                {
+                    // Пропускаем строки, в которых значение смены равно DBNull
+                    if (dataTable.Rows[row][0] == DBNull.Value)
+                    {
+                        continue;
+                    }
+                    countRow1++;
+                    firstRow2 = 7;
+
+                    worksheet.Cell(countRow1 + firstRow2, 1).Value = countRow1; // порядковый номер продукта (в Кандыгаше №партии
+                    worksheet.Cell(countRow1 + firstRow2, 2).Value = (int)dataTable.Rows[row][0]; // смена
+                    worksheet.Cell(countRow1 + firstRow2, 5).Value = (string)dataTable.Rows[row][1]; // тип простоя
+                    worksheet.Cell(countRow1 + firstRow2, 9).Value = (string)dataTable.Rows[row][2]; // остановка
+                    worksheet.Cell(countRow1 + firstRow2, 13).Value = (float)dataTable.Rows[row][3]; // длительность остановки
+                    sumDurationStopProd += (float)dataTable.Rows[row][3];
+                }
+
+                worksheet.Cell(51, 13).Value = worksheet.Cell(8, 7).Value = sumDurationStopProd;
+                worksheet.Cell(8, 1).Value = 720 - sumDurationStopProd;
+
+                workbook.Save();
+            }
+
+            ProjectLogger.LogDebug("Конец метода WriteToExcelPivot");
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    ProjectLogger.LogException("Ошибка в методе WriteToExcelPivot", ex);
+            //}
         }
         //---------------------------------------------------------------------------------------------------------------------------------------
         public void WriteToExcelPivote(XLWorkbook workbook, List<DataTable> dataTablePivot, int getMethod, List<int> shiftsDays, List<int> shifts, List<string> stopCategoryes,

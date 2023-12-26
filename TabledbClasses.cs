@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -184,7 +185,15 @@ namespace ShiftReportApp1
         {
             DataBaseConnection dbConnection = new DataBaseConnection();
             NpgsqlConnection connection = dbConnection.GetConnection(); // Здесь вызываем ваш метод
-            optionsBuilder.UseNpgsql(connection);
+            if (connection != null)
+            {
+                optionsBuilder.UseNpgsql(connection);
+            }
+            else
+            {
+                // Обработка ситуации, когда соединение не было установлено
+                MessageBox.Show("Не удалось установить соединение с базой данных", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

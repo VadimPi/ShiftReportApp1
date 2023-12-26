@@ -298,7 +298,6 @@ namespace ShiftReportApp1
                     int shiftDay = domainUpDown1.Text == "День" ? 1 : 2;
                     int shiftNum = (int)numericUpDown1.Value;
                     int shiftID;
-
                     // Проверяем, существует ли запись с такими параметрами в последних 50 записях ShiftReport
                     var existingShiftReport = dbContext.ShiftReport
                         .OrderByDescending(sr => sr.ShiftReportID)
@@ -325,7 +324,6 @@ namespace ShiftReportApp1
                                 ShiftDay = shiftDay,
                                 ShiftNum = shiftNum
                             };
-
                             dbContext.ShiftReport.Add(shiftReport);
                             dbContext.SaveChanges();
                         }
@@ -358,14 +356,37 @@ namespace ShiftReportApp1
                             Weight = (float)weight
                         };
 
-                        dbContext.ProdQualityReport.Add(shiftqualreport);
-                        dbContext.SaveChanges();
+                        DialogResult result = CustomMessageBox.Show(
+                            $"Дата:   {(string.IsNullOrWhiteSpace(comboBox1.Text) ? shiftDate.Date.ToString() : comboBox1.Text.Split(' ')[1])}\n" +
+                            $"Номер смены:   {(string.IsNullOrWhiteSpace(comboBox1.Text) ? shiftNum.ToString() : comboBox1.Text.Split(' ')[4])}\n" +
+                            $"{(string.IsNullOrWhiteSpace(comboBox1.Text) ? (shiftDay == 1 ? "День" : "Ночь") : comboBox1.Text.Split(' ')[2])}\n" +
+                            $"Марка:   {product.ProductName}\n" +
+                            $"Неуказанная:   {(shiftqualreport.Unspecified ? "Да" : "Нет")}\n" +
+                            $"Пересорт:   {(shiftqualreport.Regarding ? "Да" : "Нет")}\n" +
+                            $"Длинна:   {shiftqualreport.ProdLength}\n" +
+                            $"Ширина:   {shiftqualreport.ProdWidth}\n" +
+                            $"Толщина:   {shiftqualreport.ProdDepth}\n" +
+                            $"Объем 1 пачки:   {shiftqualreport.VolumePack}\n" +
+                            $"Средняя плотность:   {shiftqualreport.AvgDensity}\n" +
+                            $"Количество пачек:   {shiftqualreport.PackCount}\n" +
+                            $"Объем (м3):   {shiftqualreport.VolumeProduct}\n" +
+                            $"Вес (кг):   {shiftqualreport.Weight}"
+                            , "Подтверждение введенных данных",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            new Font("Arial", 14));
 
-
-                        MessageBox.Show("Данные успешно сохранены", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        SmallGrid();
-
+                        if (result == DialogResult.OK)
+                        {
+                            dbContext.ProdQualityReport.Add(shiftqualreport);
+                            dbContext.SaveChanges();
+                            MessageBox.Show("Данные успешно сохранены", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            SmallGrid();
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                     else
                     {
@@ -394,12 +415,10 @@ namespace ShiftReportApp1
                 // Очистка элементов управления
                 comboBox1.Text = default;
                 comboBox2.Text = default;
-                domainUpDown1.Text = "День";
                 numericUpDown2.Value = 100;
                 numericUpDown4.Value = 1000;
                 numericUpDown3.Value = 600;
                 numericUpDown5.Value = (decimal) 0.25;
-                numericUpDown6.Value = 1;
                 numericUpDown7.Value = numericUpDown7.Value =  95;
                 foreach (ComboBox comboBox in new ComboBox[] { comboBox3, comboBox4, comboBox5, comboBox6, comboBox7, comboBox8, comboBox9 })
                 {
@@ -453,7 +472,7 @@ namespace ShiftReportApp1
                                 {
                                     ProductReport = lastPQReport.PQReportID,
                                     DefectType = defectTypeID,
-                                    DefectVolumePack = lastPQReport.VolumePack,
+                                    DefectVolumePack = (float)numericUpDown5.Value,
                                     DefectDensity = checkBox3.Checked ? (float)numericUpDown17.Value : lastPQReport.AvgDensity,
                                     DefectPackCount = (int)pair.NumericUpDown.Value,
                                     DefectVolume = lastPQReport.VolumePack * (int)pair.NumericUpDown.Value,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,16 +23,19 @@ namespace ShiftReportApp1
         {
             DateTime varDate1 = (DateTime)dateTimePicker1.Value;
             DateTime varDate2 = (DateTime)dateTimePicker1.Value;
-            List<int> shiftDays = new List<int> ();
+            List<int> shiftDays = new List<int>();
             if (domainUpDown1.Text == "День") shiftDays = new List<int> { 1 };
             else if (domainUpDown1.Text == "Ночь") shiftDays = new List<int> { 2 };
-            List<int> shifts = new List<int> { 1, 2, 3, 4};
-            List<string> stopCategoryes = new List<string> ();
+            List<int> shifts = new List<int> { 1, 2, 3, 4 };
+            List<string> stopCategoryes = new List<string>();
             LINQRequest newReport = new LINQRequest();
             DataTable dataTable = newReport.ExtractProduct(getMethod, varDate1, varDate2, shiftDays, shifts, stopCategoryes);
             dataGridView1.DataSource = dataTable;
-
+            // Проверяем, существует ли колонка "Удалить строку"
+            // Устанавливаем источник данных
+            dataGridView1.DataSource = dataTable;
         }
+
 
         private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
@@ -66,7 +70,7 @@ namespace ShiftReportApp1
                             if (row.IsNewRow || row.Cells[0].Value == null)
                                 continue;
 
-                            int numProdReport = Convert.ToInt32(row.Cells["# записи продукта"].Value);
+                            int numProdReport = Convert.ToInt32(row.Cells["# записи"].Value);
 
                             // Ищем запись в базе данных по номеру отчета
                             var existingRecord = dbContext.ProdQualityReport.FirstOrDefault(pr => pr.PQReportID == numProdReport);
@@ -77,6 +81,7 @@ namespace ShiftReportApp1
                                 var product = dbContext.ProductCategories.FirstOrDefault(pc => pc.ProductName == productName);
                                 // Обновляем поля записи
                                 existingRecord.Product = product.ProductID;
+                                existingRecord.Report = Convert.ToInt32(row.Cells["# записи смены"].Value);
                                 existingRecord.Unspecified = Convert.ToBoolean(row.Cells["Неуказанная плт-ть"].Value);
                                 existingRecord.Regarding = Convert.ToBoolean(row.Cells["Пересорт"].Value);
                                 existingRecord.ProdLength = Convert.ToInt32(row.Cells["Длинна"].Value);
@@ -89,10 +94,10 @@ namespace ShiftReportApp1
                                 existingRecord.VolumeProduct = Convert.ToSingle(row.Cells["Объем"].Value);
                                 // Обновление для других полей аналогично
                             }
-                            // Аналогичные блоки кода добавьте для других отчетов
                         }
-                        // Сохраняем изменения в базе данных
                         dbContext.SaveChanges();
+                        // Сохраняем изменения в базе данных
+
                         MessageBox.Show("Данные успешно сохранены", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         dbContext.Dispose();
                     }
@@ -108,13 +113,14 @@ namespace ShiftReportApp1
                             if (row.IsNewRow || row.Cells[0].Value == null)
                                 continue;
 
-                            int numReport = Convert.ToInt32(row.Cells["# записи остановки"].Value);
+                            int numReport = Convert.ToInt32(row.Cells["# записи"].Value);
 
                             // Ищем запись в базе данных по номеру отчета
                             var existingRecord = dbContext.StopsReport.FirstOrDefault(str => str.StopReportID == numReport);
 
                             if (existingRecord != null)
                             {
+                                existingRecord.ShiftReport = Convert.ToInt32(row.Cells["# записи отчета"].Value);
                                 string stopName = row.Cells["Название остановки"].Value.ToString();
                                 var stop = dbContext.StopType.FirstOrDefault(st => st.StopName == stopName);
                                 string placeName = row.Cells["Место остановки"].Value.ToString();
@@ -130,10 +136,10 @@ namespace ShiftReportApp1
                                 existingRecord.Centrifuge = Convert.ToInt32(row.Cells["Фуга"].Value);
                                 // Обновление для других полей аналогично
                             }
-                            // Аналогичные блоки кода добавьте для других отчетов
                         }
-                        // Сохраняем изменения в базе данных
                         dbContext.SaveChanges();
+                        // Сохраняем изменения в базе данных
+
                         MessageBox.Show("Данные успешно сохранены", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         dbContext.Dispose();
                     }
@@ -149,7 +155,7 @@ namespace ShiftReportApp1
                             if (row.IsNewRow || row.Cells[0].Value == null)
                                 continue;
 
-                            int numReport = Convert.ToInt32(row.Cells["# записи дефекта"].Value);
+                            int numReport = Convert.ToInt32(row.Cells["# записи"].Value);
 
                             // Ищем запись в базе данных по номеру отчета
                             var existingRecord = dbContext.ProdDefectReport.FirstOrDefault(pdr => pdr.DefectReportID == numReport);
@@ -167,7 +173,6 @@ namespace ShiftReportApp1
                                 existingRecord.DefectVolume = Convert.ToSingle(row.Cells["Объем"].Value);
                                 existingRecord.DefectWeight = Convert.ToSingle(row.Cells["Вес"].Value);
                             }
-                            // Аналогичные блоки кода добавьте для других отчетов
                         }
                         // Сохраняем изменения в базе данных
                         dbContext.SaveChanges();
@@ -348,7 +353,201 @@ namespace ShiftReportApp1
             }
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        public void DeleteRowFromDB(DataGridView dataGridView)
+        {
+            try
+            {
+                using (var dbContext = new ShiftReportDbContext())
+                {
+                    if (numericUpDown1.Value > 0)
+                    {
+                        if (radioButton3.Checked || radioButton4.Checked || radioButton5.Checked || radioButton7.Checked)
+                        {
+                            int deleteRowNum = (int)numericUpDown1.Value;
+
+                            // Проверка наличия строки в DataGridView
+                            bool rowExists = dataGridView.Rows.Cast<DataGridViewRow>().Any(row =>
+                            {
+                                // Предполагаем, что в первой колонке DataGridView есть значения ID
+                                int idCellValue;
+                                bool isIdCellValueNumeric = int.TryParse(row.Cells["ID"].Value.ToString(), out idCellValue);
+                                return isIdCellValueNumeric && idCellValue == deleteRowNum;
+                            });
+
+                            if (!rowExists)
+                            {
+                                MessageBox.Show($"Строка с ID {deleteRowNum} не найдена в таблице, проверьте номер строки на удаление.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            if (radioButton7.Checked)
+                            {
+                                var existingRecord = dbContext.DefectTypes.FirstOrDefault(dt => dt.DefectTypeID == deleteRowNum);
+
+                                if (existingRecord != null)
+                                {
+                                    // Удаление строки из базы данных
+                                    dbContext.DefectTypes.Remove(existingRecord);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} успешно удалена из базы данных.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} не найдена в базе данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else if (radioButton5.Checked)
+                            {
+                                var existingRecord = dbContext.StopType.FirstOrDefault(st => st.StopTypeID == deleteRowNum);
+
+                                if (existingRecord != null)
+                                {
+                                    // Удаление строки из базы данных
+                                    dbContext.StopType.Remove(existingRecord);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} успешно удалена из базы данных.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} не найдена в базе данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else if (radioButton3.Checked)
+                            {
+                                var existingRecord = dbContext.ProductCategories.FirstOrDefault(pc => pc.ProductID == deleteRowNum);
+
+                                if (existingRecord != null)
+                                {
+                                    // Удаление строки из базы данных
+                                    dbContext.ProductCategories.Remove(existingRecord);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} успешно удалена из базы данных.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} не найдена в базе данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else if (radioButton4.Checked)
+                            {
+                                var existingRecord = dbContext.PlaceInLine.FirstOrDefault(pl => pl.PlacesID == deleteRowNum);
+
+                                if (existingRecord != null)
+                                {
+                                    // Удаление строки из базы данных
+                                    dbContext.PlaceInLine.Remove(existingRecord);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} успешно удалена из базы данных.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Строка с ID {deleteRowNum} не найдена в базе данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                        else if (radioButton1.Checked || radioButton2.Checked || radioButton6.Checked)
+                        {
+                            int deleteRowNum = (int)numericUpDown1.Value;
+
+                            // Проверка наличия строки в DataGridView
+                            bool rowExists = dataGridView.Rows.Cast<DataGridViewRow>().Any(row =>
+                            {
+                                // Предполагаем, что в первой колонке DataGridView есть значения ID
+                                int idCellValue;
+                                bool isIdCellValueNumeric = int.TryParse(row.Cells["# записи"].Value.ToString(), out idCellValue);
+                                return isIdCellValueNumeric && idCellValue == deleteRowNum;
+                            });
+
+                            if (!rowExists)
+                            {
+                                MessageBox.Show($"Строка с # {deleteRowNum} не найдена в таблице, проверьте номер строки на удаление.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            if (radioButton1.Checked)
+                            {
+                                var existingRecord = dbContext.ProdQualityReport.FirstOrDefault(pqr => pqr.PQReportID == deleteRowNum);
+
+                                if (existingRecord != null)
+                                {
+                                    var result = MessageBox.Show($"Удаление записи продукта # {deleteRowNum} будет произведена вместе с записями ОС относящихся к данному продукту. Продолжить удаление?.", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                                    if (result == DialogResult.OK)
+                                    {
+                                        // Удаление строк из базы данных
+                                        DeletRelationsRows(deleteRowNum);
+                                        dbContext.ProdQualityReport.Remove(existingRecord);
+                                        dbContext.SaveChanges();
+                                        MessageBox.Show($"Строка с # {deleteRowNum} успешно удалена из базы данных.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else { return; }
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Строка с # {deleteRowNum} не найдена в базе данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else if (radioButton2.Checked)
+                            {
+                                var existingRecord = dbContext.StopsReport.FirstOrDefault(st => st.StopReportID == deleteRowNum);
+
+                                if (existingRecord != null)
+                                {
+                                    // Удаление строки из базы данных
+                                    dbContext.StopsReport.Remove(existingRecord);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show($"Строка с # {deleteRowNum} успешно удалена из базы данных.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Строка с # {deleteRowNum} не найдена в базе данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else if (radioButton6.Checked)
+                            {
+                                var existingRecord = dbContext.ProdDefectReport.FirstOrDefault(pd => pd.DefectReportID == deleteRowNum);
+
+                                if (existingRecord != null)
+                                {
+                                    // Удаление строки из базы данных
+                                    dbContext.ProdDefectReport.Remove(existingRecord);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show($"Строка с #     {deleteRowNum} успешно удалена из базы данных.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Строка с # {deleteRowNum} не найдена в базе данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении строки из базы данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DeletRelationsRows(int prodNum)
+        {
+            using (var dbContext = new ShiftReportDbContext())
+            {
+                var existingRecord = dbContext.ProdDefectReport.FirstOrDefault(pdr => pdr.ProductReport == prodNum);
+                if (existingRecord != null)
+                {
+                    dbContext.ProdDefectReport.Remove(existingRecord);
+                    dbContext.SaveChanges();
+                    DeletRelationsRows(prodNum);
+                }
+                else { return; }
+            }
+        }
+
+    private void button7_Click(object sender, EventArgs e)
         {
             Form6 form6 = Application.OpenForms.OfType<Form6>().FirstOrDefault();
             form6.Close();
@@ -385,6 +584,7 @@ namespace ShiftReportApp1
         private void button6_Click(object sender, EventArgs e)
         {
             SaveChangesToDatabase(dataGridView1);
+            DeleteRowFromDB(dataGridView1);
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -448,6 +648,16 @@ namespace ShiftReportApp1
         }
 
         private void Form6_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
 
         }
